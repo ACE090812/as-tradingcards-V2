@@ -111,7 +111,7 @@ CreateThread(function()
     Releases.Load()
 end)
 
--- only notable pulls are logged: numbered parallels, hits, error cards, Century Club and Legends
+-- only notable pulls are logged: numbered parallels, hits, error cards, Legendary and Mythic cards
 function Community.LogPull(src, meta, itemName)
     if not meta or not meta.cardId then return end
     local card = Config.Cards[meta.cardId]

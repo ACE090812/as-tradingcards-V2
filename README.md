@@ -26,7 +26,7 @@ Everything is detected automatically. You can force a choice in `config/config.l
 | | |
 |---|---|
 | **Server-side packs** | The server rolls the cards, removes the pack and adds the items. The client only plays the progress bar and animation. |
-| **Weighted card types** | Drop weights per pack, plus a guarantee (e.g. at least 1 Star Player or better per pack). |
+| **Weighted card types** | Drop weights per pack, plus a guarantee (e.g. at least 1 Uncommon or better per pack). |
 | **Serials & print runs** | Every card gets a serial like `S1-001-0042`. Set `maxPrints` to cap a card, e.g. only 50 ever. When a card sells out, it stops dropping. |
 | **Foils** | Chance per pack. Foils get a rainbow holo layer and a value multiplier. |
 | **Pack opening** | Tear the pack open, cards are dealt face-down, then flip each one or reveal all. Each rarity has its own glow and sound. The best card is revealed last. |
@@ -75,11 +75,11 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 - **Make an offer**: on a buy it now listing with no bids, buyers can offer from 50% of the buy it now price (`offers.minPercent`). The money is held. The seller sees the offers on their listing and can accept (the auction ends and the buyer gets it) or decline (refunded). Offers are refunded if the seller doesn't answer within 24 hours, someone bids, the listing is cancelled, or another offer is accepted.
 - **Seller ratings**: after winning, the buyer gets "Rate seller" under My auctions → Finished (positive, neutral or negative, plus an optional comment) for 14 days. Every listing shows the seller's % positive, and tapping the seller's name opens their page with feedback and what they're selling now.
 - **Wantlist**: "Add to wantlist" on any card. When one is listed at auction, including inside a lot, everyone who wants it gets a phone notification. It's under Collection → Alerts, and checklist tiles show a heart.
-- **This week**: card of the week (the biggest sale), the biggest sales, the biggest pulls (numbered parallels, hits, errors, Century Club and Legends; names are hidden by default with `Config.Weekly.showPullerNames`) and price movers.
+- **This week**: card of the week (the biggest sale), the biggest sales, the biggest pulls (numbered parallels, hits, errors, Legendary and Mythic cards; names are hidden by default with `Config.Weekly.showPullerNames`) and price movers.
 - **Release days**: add products to `Config.Releases.list` with a price, quantity, per-player limit and start time. Players buy them in the app or on the website when they go live, and they're sent to their locker. Everyone online gets a notification when one goes live. A **test release** is included that goes live 2 minutes after the resource starts. Delete it once you've tried it.
 
 ## Case hits, Top Trumps, renaming
-- **Case hits**: "Legends of the Game" (/25 per player), the rarest insert. About 1 in 12 hobby boxes has one (`Config.CaseHits` in `config/products.lua`). It's never in normal packs, and only Legends, Century Club and Match Winners can be one. It has a gold frame and banner, plays a "CASE HIT" celebration, and counts as a big pull everywhere (Discord, This week, pop report). The odds page shows it.
+- **Case hits**: "Legends of the Game" (/25 per player), the rarest insert. About 1 in 12 hobby boxes has one (`Config.CaseHits` in `config/products.lua`). It's never in normal packs, and only Legends, Legendary and Match Winners can be one. It has a gold frame and banner, plays a "CASE HIT" celebration, and counts as a big pull everywhere (Discord, This week, pop report). The odds page shows it.
 - **Top Trumps** (`config/toptrumps.lua`): `/toptrumps`, or target a player with ox_target → "Challenge to Top Trumps". Pick no bet or a cash bet (both pay the same, winner takes the pot, a draw refunds it). Each player gets 5 random cards from their own pockets (they need at least 5). The chooser picks Attack or Defence, the higher number wins the round and picks next, and the most rounds won wins. Rare versions get a boost on both stats: Black +10, Red +7, Gold +5, Blue +3, Foil +2, any hit +5. A slow chooser gets their better stat picked after 20 seconds. Leaving, or disconnecting, forfeits. Cards never change hands.
 - **Renaming**: binders and slab cases can be renamed (up to 30 characters, empty resets). In ox_inventory, right-click the item → Rename (add the `buttons` line from `install/ox_inventory_items.lua` to your item definitions). The binder screen also has a RENAME button, and the name shows above the page number. The name is the item's name in the inventory and moves with the item.
 
@@ -121,10 +121,10 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 | Type | Item | Effect |
 |---|---|---|
 | Player | `ascard_player` | Matte |
-| Star Player | `ascard_star` | Silver shine sweep |
-| Captain | `ascard_captain` | Gold shine sweep, C armband |
-| Match Winner | `ascard_winner` | Gold glitter, shine sweep, light follows the mouse |
-| Century Club | `ascard_century` | Rainbow holo that shifts with the mouse, glitter |
+| Uncommon | `ascard_star` | Silver shine sweep |
+| Rare | `ascard_captain` | Gold shine sweep |
+| Epic | `ascard_winner` | Gold glitter, shine sweep, light follows the mouse |
+| Legendary | `ascard_century` | Rainbow holo that shifts with the mouse, glitter |
 | Legend | `ascard_legend` | Black and gold, gold glitter, sweep, edge glow, limited prints |
 | Foil (any type) | same item | Rainbow holo and glitter on top |
 

@@ -47,7 +47,7 @@ Config.Items = {
 --------------------------------------------------------------------------- ]]
 Config.Types = {
     {
-        id = 'player', label = 'Player', item = 'ascard_player', value = 5,
+        id = 'player', label = 'Common', item = 'ascard_player', value = 5,
         frame = '#f4f4f4',
         plate = '#ffffff', plateText = '#121212', posBg = '#121212',
         effects = {},
@@ -55,7 +55,7 @@ Config.Types = {
         sound = { name = 'NAV_UP_DOWN', set = 'HUD_FRONTEND_DEFAULT_SOUNDSET' },
     },
     {
-        id = 'star', label = 'Star Player', item = 'ascard_star', value = 20,
+        id = 'star', label = 'Uncommon', item = 'ascard_star', value = 20,
         frame = 'linear-gradient(145deg, #7e868e 0%, #eef1f4 35%, #9aa2a9 60%, #ffffff 85%)',
         plate = 'linear-gradient(90deg, #d7dce1, #ffffff 50%, #d7dce1)', plateText = '#121212', posBg = '#1a4fb5',
         effects = { sweep = 'rgba(255,255,255,0.95)', speed = '4.5s' },
@@ -63,15 +63,15 @@ Config.Types = {
         sound = { name = 'CHALLENGE_UNLOCKED', set = 'HUD_AWARDS' },
     },
     {
-        id = 'captain', label = 'Captain', item = 'ascard_captain', value = 35,
+        id = 'captain', label = 'Rare', item = 'ascard_captain', value = 35,
         frame = 'linear-gradient(145deg, #c9a100 0%, #ffe45c 40%, #d9b200 70%, #fff1a0 100%)',
         plate = '#ffd400', plateText = '#121212', posBg = '#121212',
-        effects = { sweep = 'rgba(255,240,170,0.95)', speed = '4s', armband = true },
+        effects = { sweep = 'rgba(255,240,170,0.95)', speed = '4s' },
         glow = '#ffd400',
         sound = { name = 'CHALLENGE_UNLOCKED', set = 'HUD_AWARDS' },
     },
     {
-        id = 'winner', label = 'Match Winner', item = 'ascard_winner', value = 75,
+        id = 'winner', label = 'Epic', item = 'ascard_winner', value = 75,
         frame = 'linear-gradient(145deg, #7a570c 0%, #f7d774 30%, #a87c1a 56%, #fff0b3 80%, #8a6512 100%)',
         plate = 'linear-gradient(90deg, #d9a92f, #ffe9a3 50%, #d9a92f)', plateText = '#1d1606', posBg = '#6b4b06',
         effects = { glitter = '#ffe38a', follow = true, sweep = 'rgba(255,236,160,0.8)', speed = '5.5s' },
@@ -79,7 +79,7 @@ Config.Types = {
         sound = { name = 'RANK_UP', set = 'HUD_AWARDS' },
     },
     {
-        id = 'century', label = 'Century Club', item = 'ascard_century', value = 200,
+        id = 'century', label = 'Legendary', item = 'ascard_century', value = 200,
         frame = 'linear-gradient(135deg, #ff4fa3, #ffd23f 25%, #3fffc2 50%, #3fb8ff 75%, #c43fff)',
         plate = '#111111', plateText = '#ffffff', posBg = '#c43fff',
         effects = { holo = true, glitter = '#ffffff', follow = true },
@@ -87,7 +87,7 @@ Config.Types = {
         sound = { name = 'RANK_UP', set = 'HUD_AWARDS' },
     },
     {
-        id = 'legend', label = 'Legend', item = 'ascard_legend', value = 400,
+        id = 'legend', label = 'Mythic', item = 'ascard_legend', value = 400,
         frame = 'linear-gradient(145deg, #141414 0%, #d4af37 24%, #0d0d0d 46%, #f5e6a8 66%, #151515 84%, #b8912a 100%)',
         plate = 'linear-gradient(90deg, #111111, #2a2415 50%, #111111)', plateText = '#f5d77a', posBg = '#b8912a',
         effects = { glitter = '#f5d77a', follow = true, sweep = 'rgba(245,215,122,0.9)', speed = '5s', glow = true, dark = true },

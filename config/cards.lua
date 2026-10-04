@@ -30,7 +30,7 @@ end
 
 --[[ ---------------------------------------------------------------------------
     CARDS  (key = card id - never change it once cards exist)
-    type      : player | star | captain | winner | century | legend  (Config.Types)
+    type      : player | star | captain | winner | century | legend  (ids in Config.Types: Common, Uncommon, Rare, Epic, Legendary, Mythic)
     number    : card number in the set (legends use code = 'L01' etc.)
     att / def : Attack and Defence (1-100)
     nation    : 3-letter flag code (see FLAGS in html/app.js)

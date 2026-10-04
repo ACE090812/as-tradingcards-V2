@@ -5,8 +5,8 @@ EASIEST WAY: paste the creators' own Lua output (no editing, no converting)
   custom/cards.lua      <- Card Creator "Copy Lua" (see custom/cards.example.lua)
   custom/playmats.lua   <- Playmat Creator "Copy Lua" (see custom/playmats.example.lua)
   Card art goes in custom/img/, mat images go in html/img/playmats/.
-  Creator rarity becomes a card type (Common=Player, Uncommon=Star, Rare=Captain, Epic=Match Winner,
-  Legendary=Century Club, Mythic=Legend). ATK and DEF are used as the card's attack and defence. 
+  Creator rarity becomes a card type (Common, Uncommon, Rare, Epic,
+  Legendary, Mythic). ATK and DEF are used as the card's attack and defence. 
   THEMES (set in the Card Creator's Theme box):
     Football  -> set series2.   Fields: club, position, nation.
     Creatures -> set creatures. Fields: element (ember, tide, leaf, volt, shade, stone, frost, spirit), stage, HP, move. Original creatures, no real franchise names or art.

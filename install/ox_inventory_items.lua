@@ -31,7 +31,7 @@
 },
 
 ['ascard_player'] = {
-    label = 'Player Card',
+    label = 'Common Card',
     weight = 1,
     stack = false,
     close = true,
@@ -39,7 +39,7 @@
 },
 
 ['ascard_star'] = {
-    label = 'Star Player Card',
+    label = 'Uncommon Card',
     weight = 1,
     stack = false,
     close = true,
@@ -47,7 +47,7 @@
 },
 
 ['ascard_captain'] = {
-    label = 'Captain Card',
+    label = 'Rare Card',
     weight = 1,
     stack = false,
     close = true,
@@ -55,7 +55,7 @@
 },
 
 ['ascard_winner'] = {
-    label = 'Match Winner Card',
+    label = 'Epic Card',
     weight = 1,
     stack = false,
     close = true,
@@ -63,7 +63,7 @@
 },
 
 ['ascard_century'] = {
-    label = 'Century Club Card',
+    label = 'Legendary Card',
     weight = 1,
     stack = false,
     close = true,
@@ -71,7 +71,7 @@
 },
 
 ['ascard_legend'] = {
-    label = 'Legend Card',
+    label = 'Mythic Card',
     weight = 1,
     stack = false,
     close = true,

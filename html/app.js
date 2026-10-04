@@ -466,7 +466,7 @@ ${HAIR[style](hair)}${beard}
         const labelStyle = d ? { background: d.bg, color: d.fg, 'border-color': d.border } : (g.skin && g.skin.id !== 'standard' && !g.pristine ? { background: g.skin.bg, color: g.skin.fg } : null);
         const accent = d ? { color: d.accent } : null;
         return h('div', { class: 'slab' + (g.sub ? ' has-subs' : '') + (d ? ' custom-slab' : ''), style: d && d.case ? { background: d.case } : null },
-            h('div', { class: 'slab-label' + (g.sub ? ' has-subs' : '') + (!d && g.pristine ? ' pristine' : '') + (!d && g.skin ? ' skin-' + g.skin.id : ''), style: labelStyle },
+            h('div', { class: 'slab-label' + (g.sub ? ' has-subs' : '') + (d ? ' custom' : '') + (!d && g.pristine ? ' pristine' : '') + (!d && g.skin ? ' skin-' + g.skin.id : ''), style: labelStyle },
                 h('div', { class: 'l-info' },
                     h('div', { class: 'l-brand', style: accent }, g.brand || 'GRADED'),
                     h('div', { class: 'l-name' }, card.label || ''),

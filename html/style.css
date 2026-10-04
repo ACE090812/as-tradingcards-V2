@@ -1126,3 +1126,9 @@ html, body {
 
 .cb-in.cb-gen { padding: 0; }
 .cb-in.cb-gen svg.cbgen { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* custom slab design (custom/slabs.json): every bit of label text follows the design's colours */
+.slab-label.custom .l-sub { color: inherit; opacity: .8; }
+.slab-label.custom .l-subs { border-top-color: currentColor; }
+.slab-label.custom .l-subs div { color: inherit; opacity: .85; }
+.slab-label.custom .l-subs b { color: inherit; }

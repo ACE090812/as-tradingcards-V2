@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LS Card Exchange</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="site">
+<div id="app"></div>
+<script src="https://cfx-nui-as-browser/sdk/site.js"></script>
+<script>
+    // as-browser frames this page; requests go through Site.call to the handlers in server/api.lua
+    window.ASC = {
+        mode: 'site',
+        call: function (name, args) {
+            return Site.call(name, args || {}).then(function (r) {
+                if (r && r.__error) throw new Error(r.__error);
+                return r;
+            });
+        },
+    };
+    function theme(t) {
+        document.documentElement.setAttribute('data-theme', t);
+        document.body.setAttribute('data-theme', t);
+    }
+    Site.onTheme(theme);
+</script>
+<script src="app.js"></script>
+<script>
+    var started = false;
+    Site.onRoute(function (path) {
+        if (!started) { started = true; window.ASC.start(path); return; }
+        window.ASC.route(path);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>as-tradingcards table card</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #fff; }
+        #root, #peek-root { display: none; }
+        #card { position: absolute; left: 0; top: 0; width: 300px; height: 420px; transform-origin: 0 0; }
+        #card .fc { box-shadow: none !important; border-radius: 0 !important; }
+        #card .cfx { border-radius: 0; }
+        #card *, #card *::before, #card *::after { transition: none !important; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="peek-root"></div>
+    <div id="card"></div>
+    <script src="condition.js"></script>
+    <script src="app.js"></script>
+    <script src="dui.js"></script>
+</body>
+</html>

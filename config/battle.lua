@@ -82,7 +82,7 @@ Config.Season = {
         { id = 'gold',     label = 'Gold',     min = 300 },
         { id = 'platinum', label = 'Platinum', min = 600 },
         { id = 'diamond',  label = 'Diamond',  min = 1000 },
-        { id = 'legend',   label = 'Legend',   min = 1500 },
+        { id = 'legend',   label = 'Mythic',   min = 1500 },
     },
     announce = true,               -- tell the server when a season starts / its top 3
 }

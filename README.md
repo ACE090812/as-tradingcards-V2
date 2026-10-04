@@ -120,12 +120,12 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 ## Card types
 | Type | Item | Effect |
 |---|---|---|
-| Player | `ascard_player` | Matte |
+| Common | `ascard_player` | Matte |
 | Uncommon | `ascard_star` | Silver shine sweep |
 | Rare | `ascard_captain` | Gold shine sweep |
 | Epic | `ascard_winner` | Gold glitter, shine sweep, light follows the mouse |
 | Legendary | `ascard_century` | Rainbow holo that shifts with the mouse, glitter |
-| Legend | `ascard_legend` | Black and gold, gold glitter, sweep, edge glow, limited prints |
+| Mythic | `ascard_legend` | Black and gold, gold glitter, sweep, edge glow, limited prints |
 | Foil (any type) | same item | Rainbow holo and glitter on top |
 
 Colours, effects, sell values and pack drop weights are all in `config/config.lua` (`Config.Types`, `Config.Packs`).
@@ -182,7 +182,7 @@ All new tables are created automatically on start. Everything below is switched 
 - Items: `install/ox_inventory_items_v3.lua` (or `qb-core_items_v3.lua`) plus the PNGs in `html/img/items`.
 
 **What is in it**
-- Deck box (`ascard_deckbox`): 30 raw cards, max 2 copies, 1 Legend.
+- Deck box (`ascard_deckbox`): 30 raw cards, max 2 copies, 1 Mythic.
 - Battle table (`ascard_table`): place it anywhere, host a game, a second player joins, others spectate. Wagers up to £50,000. 4,000 life, 10 minute cap.
 - Ranks and 4-week seasons with a leaderboard (`/cardrank`). Staff tournaments: `/cardtourney`, players join with `/jointourney`.
 - NPC trader: quantity, condition and sidegrade swaps with daily rates (10 swaps a day) and the collector desk with daily cash wants and a weekly brand week.

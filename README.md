@@ -1,6 +1,6 @@
-# as-tradingcards v2 – Football Cards
+# as-tradingcards v2 – Trading Cards
 
-Match Attax-style football trading cards (parody players and clubs): every 2026/27 Premier League and Championship squad (about 1,100 players across 44 clubs) plus 68 icons, all in one pool in every pack for **QBCore, QBX and ESX**: Attack/Defence stats, six card types with animated effects, serial numbers, limited print runs, foils, grading, a collection binder and a sell-back NPC.
+Trading cards for **QBCore, QBX and ESX**: Attack/Defence stats, six card types with animated effects, serials, foils, grading, binder and sell-back. No cards are built in: every card, club/team and set is created with the Card Creator and added through `custom/cards.json` / `custom/cards.lua` (see `custom/README.txt`).
 
 ## Requirements
 - `ox_lib`, `oxmysql`
@@ -131,9 +131,7 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 Colours, effects, sell values and pack drop weights are all in `config/config.lua` (`Config.Types`, `Config.Packs`).
 
 ## The cards
-- `config/cards.lua` has 44 parody clubs (20 Premier League, 24 Championship, plus 6 rest-of-the-world clubs) and 1,182 cards: 1,114 current players and 68 icons (`legend`). All of them are in every pack.
-- Names are puns on the real players. Positions are GK, DEF, MID or FWD. Attack/Defence come from the club's level and the player's squad number.
-- Card types across the pool: 965 Player, 98 Star Player, 30 Captain, 18 Match Winner, 3 Century Club and 68 Legend. The pack weights in `Config.Packs` pick the type first, then a card of that type.
+- `config/cards.lua` is intentionally empty (no clubs, no cards). Add your own cards in `custom/cards.json` / `custom/cards.lua`; they join the pack pools automatically.
 - The first 45 cards keep their old ids, so any cards players already have still work.
 
 ## Player photos

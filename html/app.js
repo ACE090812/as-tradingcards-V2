@@ -461,16 +461,20 @@ ${HAIR[style](hair)}${beard}
     function slabFace(card) {
         const g = card.graded;
         const sub = [card.club && card.club.label, card.rarity && card.rarity.label, card.parallel ? `${card.parallel.label} ${card.parallel.max === 1 ? '1/1' : (card.parallel.print || 0) + '/' + card.parallel.max}` : null, card.foil ? 'Foil' : null, printText(card)].filter(Boolean).join(' · ');
-        return h('div', { class: 'slab' + (g.sub ? ' has-subs' : '') },
-            h('div', { class: 'slab-label' + (g.sub ? ' has-subs' : '') + (g.pristine ? ' pristine' : '') + (g.skin ? ' skin-' + g.skin.id : ''), style: g.skin && g.skin.id !== 'standard' && !g.pristine ? { background: g.skin.bg, color: g.skin.fg } : null },
+        // custom slab design from the server owner / the card shop (custom/slabs.json): replaces the default look
+        const d = g.design;
+        const labelStyle = d ? { background: d.bg, color: d.fg, 'border-color': d.border } : (g.skin && g.skin.id !== 'standard' && !g.pristine ? { background: g.skin.bg, color: g.skin.fg } : null);
+        const accent = d ? { color: d.accent } : null;
+        return h('div', { class: 'slab' + (g.sub ? ' has-subs' : '') + (d ? ' custom-slab' : ''), style: d && d.case ? { background: d.case } : null },
+            h('div', { class: 'slab-label' + (g.sub ? ' has-subs' : '') + (!d && g.pristine ? ' pristine' : '') + (!d && g.skin ? ' skin-' + g.skin.id : ''), style: labelStyle },
                 h('div', { class: 'l-info' },
-                    h('div', { class: 'l-brand' }, g.brand || 'GRADED'),
+                    h('div', { class: 'l-brand', style: accent }, g.brand || 'GRADED'),
                     h('div', { class: 'l-name' }, card.label || ''),
                     h('div', { class: 'l-sub' }, sub),
                     h('div', { class: 'l-sub' }, `${card.serial || ''}${g.cert ? '  ·  Cert ' + g.cert : ''}`),
                 ),
                 h('div', { class: 'l-grade' },
-                    h('div', { class: 'g-word' }, g.label || ''),
+                    h('div', { class: 'g-word', style: accent }, g.label || ''),
                     h('div', { class: 'g-num' }, String(g.grade)),
                 ),
                 g.sub ? h('div', { class: 'l-subs' },

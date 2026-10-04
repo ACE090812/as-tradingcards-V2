@@ -65,6 +65,7 @@ function Grading.Submit(src, slot, serial, tierId, viaShop)
     DB.Seen(src, meta)
     meta.rank = meta.rank or Utils.CardItems[item.name]
     meta.tier = tier.id
+    meta.slabBy = viaShop and 'business' or 'server'   -- which custom slab design this card gets (Config.SlabDesigns)
     DB.AddGrading(identifier, item.name, meta, os.time() + tier.time)
     if MoneyLog then MoneyLog.Add(src, 'grading', -tier.fee, ('%s (%s)%s'):format(Utils.CardTitle(meta, item.name), meta.serial or '?', viaShop and ' via the player shop' or '')) end
     if SerialLog then SerialLog.Add(meta.serial, 'submitted', ('Sent for grading (%s)'):format(tier.label or tier.id)) end
@@ -165,7 +166,7 @@ lib.callback.register('as-tradingcards:server:crackSlab', function(src, slot, se
     if SerialLog then SerialLog.Add(meta.serial, 'cracked', ('Slab cracked open (was %s%s · Cert %s)'):format(meta.pristine and 'Pristine ' or 'grade ', tostring(meta.grade), tostring(meta.cert))) end
     meta.pristine = nil
 
-    meta.grade, meta.cert, meta.sub, meta.gradedFrom, meta.tier = nil, nil, nil, nil, nil
+    meta.grade, meta.cert, meta.sub, meta.gradedFrom, meta.tier, meta.slabBy = nil, nil, nil, nil, nil, nil
     if Condition then Condition.Ensure(meta) end
     local damaged = false
     if meta.cond and math.random() < (cc.damageChance or 0) then

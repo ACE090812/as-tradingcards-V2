@@ -204,12 +204,14 @@ function Utils.BuildDisplay(meta, itemName)
     end
 
     if meta.grade then
+        local design = (Config.SlabDesigns or {})[meta.slabBy or 'server']
         display.graded = {
             grade = meta.grade,
             label = (meta.pristine and Config.Pristine and Config.Pristine.label) or Config.Grading.labels[meta.grade] or '',
             pristine = meta.pristine or nil,
             cert = meta.cert,
-            brand = Config.GradingBrand,
+            brand = (design and design.name ~= '' and design.name) or Config.GradingBrand,
+            design = design,
             sub = meta.sub,
             skin = Utils.SlabSkin(meta, card),
         }

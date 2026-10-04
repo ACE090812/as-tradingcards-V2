@@ -50,3 +50,13 @@ PLAYMAT
   "image": "terrace.png",      file in custom/img/ (a board from the board creator)
   "bg": "#101010"              optional colour behind the image
 }
+
+SLAB DESIGNS  (custom/slabs.json, from the website's Slab Creator)
+  Name the file custom/slabs.json (see custom/slabs.example.json).
+  Only TWO designs are allowed:
+    "server"   = every card graded at the NPC grader
+    "business" = cards graded through the player card shop (Config.CardShop)
+  Leave one out and that route keeps the default slab. Players cannot choose a slab.
+  Fields: name (brand text), bg, fg (label background / text), accent (brand + grade word),
+          border (label border), case (optional tint behind the card). Restart the resource to reload.
+  Cards already graded keep working: a card graded before this was added uses the "server" design.

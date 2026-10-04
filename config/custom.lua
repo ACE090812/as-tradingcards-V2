@@ -7,6 +7,7 @@ Config.Custom = {
     enabled = true,
     cardFiles = { 'custom/cards.json' },
     matFiles = { 'custom/mats.json' },
+    slabFiles = { 'custom/slabs.json' },   -- custom slab design(s) from the website's Slab Creator (max 2, see Config.SlabDesigns)
     defaultSet = 'series2',        -- set for cards that don't say
     defaultType = 'player',        -- card type for cards that don't say
     defaultClub = nil,             -- club key for cards that don't say (nil = 'unattached')
@@ -102,3 +103,10 @@ Config.Themes = {
         },
     },
 }
+
+-- CUSTOM SLAB DESIGNS (the holder around a graded card). Made in the website's Slab Creator, loaded from custom/slabs.json.
+-- At most TWO designs exist:
+--   server   = used for every card graded at the NPC grader (replaces the default slab look)
+--   business = used only for cards graded through the player card shop (Config.CardShop), so the shop has its own brand
+-- Leave a slot out and that grading route keeps the default slab. Players can't pick a slab, it follows where the card was graded.
+Config.SlabDesigns = {}

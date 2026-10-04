@@ -2,7 +2,7 @@
      makes the Series 2 + seasonal helpers. Runs on both client and server before shared/utils.lua. ]]
 local CC = Config.Custom or {}
 local RES = GetCurrentResourceName()
-Custom = { cards = {}, mats = {}, errors = {} }
+Custom = { cards = {}, mats = {}, slabs = {}, errors = {} }
 
 local function readJson(path)
     local raw = LoadResourceFile(RES, path)
@@ -82,6 +82,34 @@ if CC.enabled ~= false then
                     Config.Mats.list[#Config.Mats.list + 1] = mat
                     Custom.mats[#Custom.mats + 1] = id
                 end
+            end
+        end
+    end
+
+    -- slab designs: { "server": {...}, "business": {...} }. Only those two slots exist, anything else is ignored.
+    local function css(v, def)
+        v = tostring(v or '')
+        if v == '' or #v > 160 or v:find('[<>{};\\"\']') or v:lower():find('url%s*%(') or v:lower():find('expression') then return def end
+        return v
+    end
+    for _, file in ipairs(CC.slabFiles or {}) do
+        local data = readJson(file)
+        if data then
+            for _, slot in ipairs({ 'server', 'business' }) do
+                local d = data[slot]
+                if type(d) == 'table' and not Config.SlabDesigns[slot] then
+                    Config.SlabDesigns[slot] = {
+                        slot = slot,
+                        name = tostring(d.name or d.brand or ''):sub(1, 24):upper(),
+                        bg = css(d.bg, '#f2f3f6'), fg = css(d.fg, '#14171f'),
+                        accent = css(d.accent, '#1a3d7c'), border = css(d.border, '#1a3d7c'),
+                        case = css(d.case, nil),
+                    }
+                    Custom.slabs[#Custom.slabs + 1] = slot
+                end
+            end
+            for k in pairs(data) do
+                if k ~= 'server' and k ~= 'business' then Custom.errors[#Custom.errors + 1] = ('%s: "%s" ignored (only "server" and "business" slab designs are allowed)'):format(file, tostring(k)) end
             end
         end
     end

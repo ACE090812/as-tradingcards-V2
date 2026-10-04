@@ -1,0 +1,17 @@
+{
+  "server": {
+    "name": "ACE GRADING",
+    "bg": "linear-gradient(90deg,#101114,#2a2415)",
+    "fg": "#f6d57a",
+    "accent": "#d4af37",
+    "border": "#d4af37",
+    "case": "linear-gradient(160deg, rgba(212,175,55,.28), rgba(255,255,255,.06) 45%, rgba(212,175,55,.18))"
+  },
+  "business": {
+    "name": "CARD SHOP GRADED",
+    "bg": "#f2f3f6",
+    "fg": "#14171f",
+    "accent": "#c0392b",
+    "border": "#c0392b"
+  }
+}

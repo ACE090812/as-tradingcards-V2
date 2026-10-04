@@ -320,7 +320,7 @@ Config.Peds = {
         scenario = nil,
         anim = { dict = 'mini@strip_club@idles@bouncer@base', clip = 'base' },
         roles = { 'shop', 'grader', 'buyer' },
-        blip = { sprite = 605, colour = 27, scale = 0.7, label = 'Football Cards' },
+        blip = { sprite = 605, colour = 27, scale = 0.7, label = 'Trading Cards' },
     },
 }
 Config.PedSpawnDistance = 40.0

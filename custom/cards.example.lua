@@ -52,7 +52,7 @@ Config.Cards['card_vinewood_sign'] = {
 }
 
 Config.CardBacks = Config.CardBacks or {}
-Config.CardBacks.football = { style = 'solid', c1 = '#0e1a2e', c2 = '#1c3358', accent = '#f7d774', emblem = 'UKC', title = 'Football Cards', sub = 'Series 1' }
+Config.CardBacks.football = { style = 'solid', c1 = '#0e1a2e', c2 = '#1c3358', accent = '#f7d774', emblem = 'UKC', title = 'Trading Cards', sub = 'Series 1' }
 Config.CardBacks.creatures = { style = 'rings', c1 = '#102a2a', c2 = '#1f5a52', accent = '#8fe3c4', emblem = '', title = 'Creature Cards', sub = 'Collect them all' }
 Config.CardBacks.lossantos = { style = 'diamonds', c1 = '#1a0f2e', c2 = '#4a1d5c', accent = '#ffb347', emblem = 'LS', title = 'Los Santos', sub = 'Street cards' }
 

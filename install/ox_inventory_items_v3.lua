@@ -23,7 +23,7 @@
     weight = 20,
     stack = true,
     close = true,
-    description = 'Contains 5 football cards',
+    description = 'Contains 5 trading cards',
     server = { export = 'as-tradingcards.useItem' },
 },
 
@@ -32,7 +32,7 @@
     weight = 30,
     stack = true,
     close = true,
-    description = 'Contains 8 football cards',
+    description = 'Contains 8 trading cards',
     server = { export = 'as-tradingcards.useItem' },
 },
 

@@ -14,7 +14,7 @@ Config.CardShop = {
     esxAlwaysOnDuty = true,
 
     -- customer counter. SET these. Leave coords at 0 to use the NPC shop ped's spot.
-    counter = { coords = vec3(0.0, 0.0, 0.0), radius = 1.6, blip = { sprite = 605, colour = 27, scale = 0.7, label = 'Football Cards' } },
+    counter = { coords = vec3(0.0, 0.0, 0.0), radius = 1.6, blip = { sprite = 605, colour = 27, scale = 0.7, label = 'Trading Cards' } },
     managerDesk = { coords = vec3(0.0, 0.0, 0.0), radius = 1.2 },   -- staff-only desk (leave 0 to use the counter)
 
     -- selling price limits (x market value). Stops money laundering through the shop.

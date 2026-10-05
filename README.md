@@ -148,7 +148,7 @@ Nothing is built in: no cards, no sets and no packs. You make everything.
 1. **Make the cards** in the website's Card Creator and paste the output into `custom/cards.lua` (or `custom/cards.json`, see `custom/README.txt`). Each card's `set` becomes its own series, created automatically. Give a series a proper name and serial code in `Config.Custom.sets` (`config/custom.lua`).
 2. **Make a pack** for the series: add `Config.Packs['pack_myseries'] = { label = '...', set = 'myseries', cards = 5, rates = { ... } }` to `custom/cards.lua`, or build one in the Card Creator.
 3. **Add the pack item** to your inventory (see `install/ox_inventory_items.lua`) with an icon in `html/img/items/`. With `Config.Custom.shop.enabled`, every custom pack is added to the card shop automatically, at `pricePerCard` per card or the price you set in `Config.Custom.shop.prices`.
-4. **Pack art**: make it in the website's Pack Creator and set `Config.Packs['pack_myseries'].art = 'img/my_pack.png'`.
+4. **Pack art**: make it in the website's Pack Creator, put the PNG in `html/img/`, and add `art = 'img/my_pack.png'` inside the pack in `custom/cards.lua`.
 
 Until you have made cards and a pack, players have nothing to buy or open. `Config.Boxes`, the booster box and `Config.Releases` are empty too; their config files have examples.
 

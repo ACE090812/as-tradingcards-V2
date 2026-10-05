@@ -60,3 +60,9 @@ SLAB DESIGNS  (custom/slabs.json, from the website's Slab Creator)
   Fields: name (brand text), bg, fg (label background / text), accent (brand + grade word),
           border (label border), case (optional tint behind the card). Restart the resource to reload.
   Cards already graded keep working: a card graded before this was added uses the "server" design.
+
+PACK ART (front of the pack players rip open)
+  Add  art = 'img/my_pack.png'  inside the pack in custom/cards.lua, e.g.
+    Config.Packs['pack_myseries'] = { label = 'My Series Pack', set = 'myseries', cards = 5, rates = { ... }, art = 'img/my_pack.png' }
+  Put the PNG from the website's Pack Creator in html/img/ (then use 'img/name.png'), or in custom/img/ (then just use 'name.png'), or use an https:// link.
+  No art = Config.PackArt (config/config.lua). Restart the resource after changing it.

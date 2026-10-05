@@ -250,6 +250,7 @@ if CC.enabled ~= false then
                     Config.Packs[id] = {
                         label = tostring(pk.label or titleCase(id)), set = best, cards = math.max(1, math.min(15, tonumber(pk.cards) or 5)),
                         weights = weights, guaranteed = g, foilChance = CC.creatorPackFoil or 0.05, custom = true,
+                        art = imageUrl(pk.art),   -- optional front-of-pack picture: 'img/x.png' (html/img/), a file in custom/img/, or an https:// link
                     }
                     Custom.packs = (Custom.packs or 0) + 1
                     local sh = CC.shop or {}

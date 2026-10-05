@@ -66,3 +66,8 @@ PACK ART (front of the pack players rip open)
     Config.Packs['pack_myseries'] = { label = 'My Series Pack', set = 'myseries', cards = 5, rates = { ... }, art = 'img/my_pack.png' }
   Put the PNG from the website's Pack Creator in html/img/ (then use 'img/name.png'), or in custom/img/ (then just use 'name.png'), or use an https:// link.
   No art = Config.PackArt (config/config.lua). Restart the resource after changing it.
+
+CARD PICTURES
+  The game shows a card as its picture when html/img/cards/<card id>.png (or .webp / .jpg) exists. Make them in the website's Card Creator
+  ("Card pictures (.zip)" or "Download everything") and unzip into html/img/. Without a picture the game draws its own card, which looks different.
+  Config.CardFaceImages = false turns it off. Remake a card's picture after you change the card.

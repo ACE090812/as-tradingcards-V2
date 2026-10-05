@@ -32,6 +32,8 @@ files {
     'html/img/*.webp',
     'html/img/items/*.png',
     'html/img/cards/*.webp',
+    'html/img/cards/*.png',
+    'html/img/cards/*.jpg',
     'html/img/slabs/*.webp',
     'html/img/badges/*.png',
     'html/img/badges/*.webp',

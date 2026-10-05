@@ -141,6 +141,23 @@ function Utils.SlabSkin(meta, card)
     end
 end
 
+-- Picture of the whole card (html/img/cards/<cardId>.png/.webp/.jpg), made by the website's Card Creator
+-- ("Card images (.zip)"). When one exists the card is shown as that picture, so it looks the same as in the creator.
+local faceCache = {}
+function Utils.CardFace(cardId)
+    if not cardId or Config.CardFaceImages == false then return nil end
+    local hit = faceCache[cardId]
+    if hit ~= nil then return hit or nil end
+    for _, ext in ipairs({ 'png', 'webp', 'jpg' }) do
+        if LoadResourceFile(GetCurrentResourceName(), ('html/img/cards/%s.%s'):format(cardId, ext)) then
+            faceCache[cardId] = ('img/cards/%s.%s'):format(cardId, ext)
+            return faceCache[cardId]
+        end
+    end
+    faceCache[cardId] = false
+    return nil
+end
+
 --[[ Builds the table the NUI renders from card metadata ]]
 function Utils.BuildDisplay(meta, itemName)
     meta = meta or {}
@@ -163,6 +180,7 @@ function Utils.BuildDisplay(meta, itemName)
         kit = card and card.kit,
         look = card and card.look,
         image = card and card.image,
+        face = card and Utils.CardFace(card.id),
         code = Utils.CardCode(card),
         club = { key = card and card.club, label = club.label, short = club.short, c1 = club.c1, c2 = club.c2, text = club.text, badge = club.badge },
         setLabel = set and set.label,

@@ -372,7 +372,41 @@ ${HAIR[style](hair)}${beard}
         );
     }
 
+    // a card shown as its picture (html/img/cards/<id>.png, from the website's Card Creator) instead of the drawn template
+    function pictureFace(card) {
+        const t = card.rarity || {};
+        const par = card.parallel || null;
+        const fx = Object.assign({}, t.effects || {}, par ? par.effects || {} : {});
+        const fin = card.finish && card.finish !== 'none' ? card.finish : null;
+        const classes = ['fc', 'fc-pic', t.id, fx.glow && 'glow', card.foil && 'foil', par && 'par', par && ('par-' + par.id), fx.pulse && 'pulse',
+            fin && ('fin-' + fin), card.insert && 'ins', card.error && ('err-' + card.error.id)].filter(Boolean).join(' ');
+        const strength = Math.max(0.2, Math.min(2, Number(card.foilStrength) || 1));
+        const layers = [];
+        if (card.foil && !fin) layers.push(h('div', { class: 'fx fx-holo' }));
+        if (fin) layers.push(h('div', { class: 'fx fx-fin' }));
+        if (fx.sweep) layers.push(h('div', { class: 'fx fx-sweep' }));
+        layers.push(h('div', { class: 'fx fx-follow' }));
+        const chips = [];
+        if (par) chips.push(h('div', { class: 'pic-chip par', style: { '--stamp': col(par.stamp, '#333') } }, `${(par.label || '').toUpperCase()} ${par.max === 1 ? '1/1' : `${String(par.print || 0).padStart(2, '0')}/${par.max}`}`));
+        if (card.insert) chips.push(h('div', { class: 'pic-chip' }, (card.insert.label || '').toUpperCase()));
+        if (card.error) chips.push(h('div', { class: 'pic-chip err' }, (card.error.label || 'ERROR').toUpperCase()));
+        if (card.rookie) chips.push(h('div', { class: 'pic-chip' }, 'RC'));
+        const info = [printText(card), card.serial].filter(Boolean).join('  ·  ');
+        return h('div', {
+            class: classes,
+            style: { '--pulse': col(fx.pulse, '#ffffff'), '--sweep': fx.sweep || 'transparent', '--speed': fx.speed || '4.5s', '--fs': String(strength) },
+        },
+            h('div', { class: 'fc-in' },
+                h('img', { class: 'pic', src: card.face, draggable: 'false' }),
+                layers,
+                chips.length ? h('div', { class: 'pic-chips' }, chips) : null,
+                info ? h('div', { class: 'pic-print' }, info) : null,
+            ),
+        );
+    }
+
     function cardFace(card) {
+        if (card.face && !(card.error && card.error.id === 'blankBack')) return pictureFace(card);
         if (card.theme && card.theme !== 'football') return themedFace(card);
         card = applyError(card);
         const t = card.rarity || {};
@@ -449,7 +483,11 @@ ${HAIR[style](hair)}${beard}
         if (!card.cond || !card.cond.c || !window.CondFX) return face;
         // off-centre print: the picture sits closer to one edge, so the borders are uneven
         const off = window.CondFX.centering && window.CondFX.centering(card.cond.c);
-        if (off && face.classList && face.classList.contains('fc')) {
+        if (off && face.classList && face.classList.contains('fc-pic')) {
+            // picture card: slide the print inside the card stock, so one border looks thicker and the opposite one is cut off
+            const im = face.querySelector('img.pic');
+            if (im) im.style.transform = `translate(${(off.dx * 1.4).toFixed(1)}px, ${(off.dy * 1.4).toFixed(1)}px)`;
+        } else if (off && face.classList && face.classList.contains('fc')) {
             const b = 6, p = v => `${Math.max(0.5, b + v).toFixed(1)}px`;
             face.style.padding = `${p(off.dy)} ${p(-off.dx)} ${p(-off.dy)} ${p(off.dx)}`;
         }

@@ -27,10 +27,12 @@ function CardImages.Get(cardId)
     local hit = cache[cardId]
     if hit ~= nil then return hit or nil end
     -- 1st choice: the picture of the whole card (html/img/cards/<id>.webp, made by the card renderer)
-    local cardPic = ('html/img/cards/%s.webp'):format(cardId)
-    if LoadResourceFile(res, cardPic) then
-        cache[cardId] = ('nui://%s/%s'):format(res, cardPic)
-        return cache[cardId]
+    for _, ext in ipairs({ 'webp', 'png', 'jpg' }) do
+        local cardPic = ('html/img/cards/%s.%s'):format(cardId, ext)
+        if LoadResourceFile(res, cardPic) then
+            cache[cardId] = ('nui://%s/%s'):format(res, cardPic)
+            return cache[cardId]
+        end
     end
     for _, ext in ipairs(EXT) do
         local path = ('html/img/players/%s.%s'):format(cardId, ext)

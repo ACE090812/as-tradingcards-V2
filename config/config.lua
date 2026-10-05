@@ -311,6 +311,10 @@ Config.CardFooter = 'UK CENTRAL'
 -- Set to false to use the built-in navy pitch design instead.
 Config.CardBack = 'img/default_back.png'
 
+-- Show a card as its picture when html/img/cards/<cardId>.png (or .webp / .jpg) exists. Make the pictures with the
+-- website's Card Creator: "Card images (.zip)", unzip into html/img/. false = always draw the card in game.
+Config.CardFaceImages = true
+
 -- Player photos. The card looks for a photo in this order:
 --   1. html/img/players/<cardId>.png / .jpg / .webp  (photos you put in the resource)
 --   2. Config.PhotoUrl with {id} swapped for the card id  (photos hosted online)

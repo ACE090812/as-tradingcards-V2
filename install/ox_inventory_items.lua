@@ -2,26 +2,18 @@
 -- Folder name used in every export below: as-tradingcards-V2  (must match your resource folder exactly)
 -- Item images: put ascard_*.png in ox_inventory/web/images/
 
--- custom ACE Studios pack
-['acestudios'] = {
-    label = 'ACE Studios',
-    weight = 10,
-    stack = false,
-    close = true,
-    description = 'Common trading card',
-    server = { export = 'as-tradingcards-V2.useItem' },
-},
-
--- One item per custom pack. Copy this block for each new series pack, change the key and label.
+-- One item per custom pack (copy this block for each series pack you make).
 -- The key must match the pack name in custom/cards.lua (Config.Packs['pack_xxx']).
-['pack_acestudios'] = {
-    label = 'ACE STUDIOS Test Pack',
+--[[
+['pack_myseries'] = {
+    label = 'My Series Pack',
     weight = 50,
     stack = true,
     close = true,
     description = 'Opens 5 cards',
     server = { export = 'as-tradingcards-V2.useItem' },
 },
+]]
 
 ['ascard_player'] = {
     label = 'Common Card',

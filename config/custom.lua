@@ -26,13 +26,12 @@ Config.Custom = {
     creatorNation = nil,           -- e.g. 'ENG' if you want a flag on creator cards
     creatorNumberBase = 7000,      -- card numbers for creator cards count up from here
 
-    -- MULTIPLE SERIES: every card keeps the `set` it was made with in the Card Creator (e.g. set = 'acestudios'),
+    -- MULTIPLE SERIES: every card keeps the `set` it was made with in the Card Creator (e.g. set = 'myseries'),
     -- and that becomes its own series. Make a pack for each one with the same set name:
-    --   Config.Packs['pack_acestudios'] = { label = '...', set = 'acestudios', cards = 5, rates = { ... } }
+    --   Config.Packs['pack_myseries'] = { label = '...', set = 'myseries', cards = 5, rates = { ... } }
     -- Cards with no set fall back to creatorSets / defaultSet above.
     creatorSetsHidden = false,     -- false = new series are live straight away. true = they wait for /cardadmin > Switches > Series 2
     sets = {                       -- optional: a nice name and 3-letter serial code per series
-        acestudios = { label = 'ACE Studios', code = 'ACE' },
         -- myseries = { label = 'My Series', code = 'MYS' },
     },
 
@@ -41,7 +40,7 @@ Config.Custom = {
         enabled = true,
         pricePerCard = 3,          -- pack price = cards in the pack x this
         prices = {                 -- or set a price for one pack
-            -- pack_acestudios = 25,
+            -- pack_myseries = 25,
         },
     },
 }

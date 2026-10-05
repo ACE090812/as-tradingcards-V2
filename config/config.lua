@@ -178,7 +178,7 @@ Config.PackOpening = {
     giveAllAfter = 120,     -- seconds: safety net, anything not handed out by then is given anyway
     -- booster pack prop in the right hand (streamed prop from stream/)
     anim = { dict = 'mp_arresting', clip = 'a_uncuff', flag = 49 },
-    prop = { model = 'prop_boosterpack_01', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(70.0, 10.0, 90.0) },
+    prop = { model = 'ascardpack', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(70.0, 10.0, 90.0) },
 }
 
 -- Art on the front of the 3D pack you rip open (inside html/, or an https:// URL).
@@ -195,7 +195,7 @@ Config.BoosterBox = {
     gives = { item = 'ascard_booster_pack1', count = 12 },
     duration = 4000,
     anim = { dict = 'mp_arresting', clip = 'a_uncuff', flag = 49 },
-    prop = { model = 'prop_boosterbox_01', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(0.0, 10.0, 90.0) },
+    prop = { model = 'asboosterbox', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(0.0, 10.0, 90.0) },
 }
 
 -- Binder size: pages of 9 sleeves (60 pages = 540 cards)
@@ -204,7 +204,7 @@ Config.Binder = { pages = 60 }
 -- Deck box held while the binder is open
 Config.BinderProp = {
     anim = { dict = 'clothingshirt', clip = 'try_shirt_positive_d', flag = 49 },
-    prop = { model = 'prop_deckbox_01', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(0.0, 10.0, 90.0) },
+    prop = { model = 'as_cardbinder', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(0.0, 10.0, 90.0) },
 }
 
 --[[ ---------------------------------------------------------------------------

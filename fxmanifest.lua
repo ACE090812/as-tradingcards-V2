@@ -41,8 +41,9 @@ files {
 }
 
 -- props (booster pack, booster box, deck box)
-data_file 'DLC_ITYP_REQUEST' 'stream/booster_props.ytyp'
-data_file 'DLC_ITYP_REQUEST' 'stream/prop_deckbox_01.ytyp'
+data_file 'DLC_ITYP_REQUEST' 'stream/as_cardbinder.ytyp'
+data_file 'DLC_ITYP_REQUEST' 'stream/asboosterbox.ytyp'
+data_file 'DLC_ITYP_REQUEST' 'stream/ascardpack.ytyp'
 
 shared_scripts {
     '@ox_lib/init.lua',

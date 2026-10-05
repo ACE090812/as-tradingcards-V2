@@ -1,5 +1,5 @@
 --[[ Card condition (client): water checks, the cleaning bench, and the card on the table
-     The card on the mat is a real prop (pokemon_card) whose front texture is replaced by a DUI
+     The card on the mat is drawn by a DUI
      that draws our card + its dirt. The NUI is a see-through layer that turns mouse movement
      into wipes on the card, which are sent on to the DUI so you watch the dirt come off in-world. ]]
 if not (Config.Condition and Config.Condition.enabled) then return end

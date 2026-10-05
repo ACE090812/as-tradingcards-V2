@@ -112,7 +112,8 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 - New item: `ascard_shrinkwrap` (in `install/ox_inventory_items_extras.lua`, image `ascard_shrinkwrap.png`). New tables are made automatically (also in `sql/install.sql`).
 
 ## Props, sounds and pack ripping
-- **Props** (in `stream/`): `prop_boosterpack_01` in your hand while opening a pack, `prop_boosterbox_01` while opening a booster box, and `prop_deckbox_01` while the binder is open. Props and sounds from KamuiKody's k-pokemontcg. Their textures may still show the original art until they're retextured.
+- **Props** (in `stream/`): `ascardpack` in your hand while opening a pack, `asboosterbox` while opening a booster box, and `as_cardbinder` while the binder is open. There is no model for a single card yet.
+- **Sound credit**: the sound files were originally noted as coming from KamuiKody's k-pokemontcg. Check the licence, or replace them, before you release or sell the script.
 - **Sounds** (`html/sounds/`): snap (rip), dealfour (deal), flip, badge (rare pulls) and boxopen. Volume and on/off are in `Config.Sounds`.
 - **Ripping**: packs open in a 3D foil pack. Drag along the top to tear the strip off, then the cards slide out. The pack art is `Config.PackArt`, and each pack can set its own `art`.
 - **Booster box**: the `ascard_booster_box` item gives `Config.BoosterBox.gives` packs.

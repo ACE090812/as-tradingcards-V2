@@ -87,7 +87,6 @@ server_scripts {
     'server/db.lua',
     'server/cards.lua',
     'server/images.lua',
-    'server/unpack_cards.lua',
     'server/discord.lua',
     'server/main.lua',
     'server/shop.lua',

@@ -40,7 +40,8 @@ function Utils.SealedValue(name)
         base = pack and pack.cards * 2 or 0
     end
     local sc = Config.Sealed or {}
-    local released = (sc.released or {})['series1'] or os.time()
+    local pack = Config.Packs[name]
+    local released = (sc.released or {})[pack and pack.set or ''] or os.time()
     local weeks = math.max(0, (os.time() - released) / 604800)
     local mult = math.min(sc.maxMultiplier or 3, 1 + weeks * (sc.growthPerWeek or 0))
     return math.floor(base * mult + 0.5)

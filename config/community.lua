@@ -22,24 +22,11 @@ Config.Releases = {
     enabled = true,
     announce = true,           -- phone notification to everyone online when a release goes live
     list = {
-        -- TEST RELEASE: goes live 2 minutes after the resource starts. Delete it once you've tried it.
-        -- (startsIn / endsIn = seconds after the resource starts, handy for testing)
-        {
-            id = 'test_hobby_drop',
-            label = 'Hobby Box: Release Day (test)',
-            description = 'A test release. 1 guaranteed hit in every box.',
-            item = 'ascard_hobby_box',
-            price = 450,
-            quantity = 20,
-            perPlayer = 2,
-            startsIn = 120,
-            endsIn = 86400,
-        },
         -- {
         --     id = 'hobby_launch',                  -- never change once it has sold
-        --     label = 'Series 1 Hobby Box: Launch Day',
+        --     label = 'Launch Day Box',
         --     description = 'The first hobby boxes of the season. 1 guaranteed hit in every box.',
-        --     item = 'ascard_hobby_box',
+        --     item = 'ascard_my_box',
         --     price = 450,
         --     quantity = 30,                        -- how many exist in total
         --     perPlayer = 2,                        -- how many one character can buy

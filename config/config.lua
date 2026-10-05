@@ -151,22 +151,8 @@ Config.Parallels = {
     foilChance = 0.0 - 1.0 per card
 --------------------------------------------------------------------------- ]]
 Config.Packs = {
-    ['ascard_booster_pack1'] = {
-        label = 'Series 1 Booster',
-        set = 'series1',
-        cards = 5,
-        weights = { player = 70, star = 18, captain = 6, winner = 4, century = 1.5, legend = 0.5 },
-        guaranteed = { count = 1, minRarity = 'star' },
-        foilChance = 0.05,
-    },
-    ['ascard_booster_pack2'] = {
-        label = 'Series 1 Mega Booster',
-        set = 'series1',
-        cards = 10,
-        weights = { player = 60, star = 22, captain = 8, winner = 6, century = 2.5, legend = 1.5 },
-        guaranteed = { count = 2, minRarity = 'star' },
-        foilChance = 0.07,
-    },
+    -- empty on purpose: packs belong to a series. config/series2.lua has the packs for the creator sets, and
+    -- the README shows how to add a pack for a series of your own.
 }
 
 Config.PackOpening = {
@@ -183,16 +169,16 @@ Config.PackOpening = {
 
 -- Art on the front of the 3D pack you rip open (inside html/, or an https:// URL).
 -- A pack can override it with `art = '...'` in Config.Packs.
-Config.PackArt = 'img/card_back.jpg'
+Config.PackArt = 'img/default_back.png'
 
 --[[ ---------------------------------------------------------------------------
     BOOSTER BOX  - use it to get a stack of packs
 --------------------------------------------------------------------------- ]]
 Config.BoosterBox = {
-    enabled = true,
+    enabled = false,         -- off until you point `gives` at a pack of your own series
     item = 'ascard_booster_box',
-    label = 'Series 1 Booster Box',
-    gives = { item = 'ascard_booster_pack1', count = 12 },
+    label = 'Booster Box',
+    gives = { item = 'ascard_s2_booster', count = 12 },
     duration = 4000,
     anim = { dict = 'mp_arresting', clip = 'a_uncuff', flag = 49 },
     prop = { model = 'asboosterbox', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(0.0, 10.0, 90.0) },
@@ -289,13 +275,6 @@ Config.Pricing = {
 Config.Shop = {
     label = 'Card Shop',
     items = {
-        { item = 'ascard_booster_pack1', price = 10,  label = 'Series 1 Booster (5 cards)' },
-        { item = 'ascard_booster_pack2', price = 20,  label = 'Series 1 Mega Booster (10 cards)' },
-        { item = 'ascard_booster_box',   price = 100, label = 'Series 1 Booster Box (12 packs)' },
-        { item = 'ascard_fat_pack',      price = 15,  label = 'Series 1 Fat Pack (7 cards, 1 foil)' },
-        { item = 'ascard_tin',           price = 60,  label = 'Collector Tin (4 packs + limited card)' },
-        { item = 'ascard_blaster',       price = 75,  label = 'Blaster Box (6 packs + exclusive)' },
-        { item = 'ascard_hobby_box',     price = 400, label = 'Hobby Box (12 hobby packs, 1 guaranteed hit)' },
         { item = 'ascard_psa',           price = 100, label = 'Grading Case' },
         { item = 'ascard_binder',        price = 50,  label = 'Card Binder' },
         { item = 'ascard_sleeve',        price = 1,   label = 'Penny Sleeve' },
@@ -332,7 +311,7 @@ Config.InteractDistance = 2.0
 Config.CardFooter = 'UK CENTRAL'
 -- Image for the back of every card (inside html/, or an https:// URL). Best at 600x840 (5:7).
 -- Set to false to use the built-in navy pitch design instead.
-Config.CardBack = 'img/card_back.jpg'
+Config.CardBack = 'img/default_back.png'
 
 -- Player photos. The card looks for a photo in this order:
 --   1. html/img/players/<cardId>.png / .jpg / .webp  (photos you put in the resource)

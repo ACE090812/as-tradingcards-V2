@@ -1,9 +1,6 @@
 -- QBCore + qb-inventory (or ps-/lj-inventory): add to qb-core/shared/items.lua
 -- Item images: put ascard_*.png in your inventory's html/images/ folder
 
-ascard_booster_pack1 = { name = 'ascard_booster_pack1', label = 'Series 1 Booster',      weight = 20,  type = 'item', image = 'ascard_booster_pack1.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = 'Contains 5 football cards' },
-ascard_booster_pack2 = { name = 'ascard_booster_pack2', label = 'Series 1 Mega Booster', weight = 35,  type = 'item', image = 'ascard_booster_pack2.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = 'Contains 10 football cards' },
-ascard_booster_box   = { name = 'ascard_booster_box',   label = 'Series 1 Booster Box',  weight = 300, type = 'item', image = 'ascard_booster_box.png',   unique = false, useable = true, shouldClose = true, combinable = nil, description = 'Contains 12 booster packs' },
 ascard_player          = { name = 'ascard_player', label = 'Common Card', weight = 1, type = 'item', image = 'ascard_player.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A football trading card' },
 ascard_star            = { name = 'ascard_star', label = 'Uncommon Card', weight = 1, type = 'item', image = 'ascard_star.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A football trading card' },
 ascard_captain         = { name = 'ascard_captain', label = 'Rare Card', weight = 1, type = 'item', image = 'ascard_captain.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'A football trading card' },
@@ -24,11 +21,5 @@ ascard_slabcase      = { name = 'ascard_slabcase',      label = 'Slab Case',    
 ascard_appraisal     = { name = 'ascard_appraisal',     label = 'Appraisal Letter',      weight = 10,  type = 'item', image = 'ascard_appraisal.png',     unique = true,  useable = true,  shouldClose = true, combinable = nil, description = 'An official card appraisal' },
 ascard_shrinkwrap    = { name = 'ascard_shrinkwrap',    label = 'Shrink Wrap',           weight = 50,  type = 'item', image = 'ascard_shrinkwrap.png',    unique = false, useable = true,  shouldClose = true, combinable = nil, description = 'Wrap loose packs back into a box. It won’t pass a seal check.' },
 
-ascard_fat_pack      = { name = 'ascard_fat_pack', label = 'Series 1 Fat Pack', weight = 20, type = 'item', image = 'ascard_fat_pack.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '7 cards, at least one foil' },
-ascard_blaster_pack  = { name = 'ascard_blaster_pack', label = 'Blaster Exclusive Pack', weight = 20, type = 'item', image = 'ascard_blaster_pack.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '3 cards with a guaranteed numbered parallel' },
-ascard_hobby_pack    = { name = 'ascard_hobby_pack', label = 'Series 1 Hobby Pack', weight = 20, type = 'item', image = 'ascard_hobby_pack.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '8 cards - hobby packs are where the hits are' },
-ascard_blaster       = { name = 'ascard_blaster', label = 'Series 1 Blaster Box', weight = 200, type = 'item', image = 'ascard_blaster.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '6 boosters + 1 exclusive pack' },
-ascard_hobby_box     = { name = 'ascard_hobby_box', label = 'Series 1 Hobby Box', weight = 500, type = 'item', image = 'ascard_hobby_box.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '12 hobby packs, one guaranteed autograph or relic' },
-ascard_tin           = { name = 'ascard_tin', label = 'Series 1 Collector Tin', weight = 300, type = 'item', image = 'ascard_tin.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '4 boosters + 1 limited card' },
 
 -- Older qb-core using the ['name'] = { ['name'] = ... } format: same fields, just wrap them that way.

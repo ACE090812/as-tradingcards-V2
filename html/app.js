@@ -538,7 +538,7 @@ ${HAIR[style](hair)}${beard}
                 svgEl('<svg viewBox="0 0 288 408" preserveAspectRatio="none"><rect x="14" y="14" width="260" height="380" rx="4" fill="none" stroke="#f7d774" stroke-width="2"/><circle cx="144" cy="204" r="70" fill="none" stroke="#f7d774" stroke-width="2"/><line x1="14" y1="204" x2="274" y2="204" stroke="#f7d774" stroke-width="2"/><rect x="74" y="14" width="140" height="56" fill="none" stroke="#f7d774" stroke-width="2"/><rect x="74" y="338" width="140" height="56" fill="none" stroke="#f7d774" stroke-width="2"/></svg>', 'pitch'),
                 svgEl('<svg viewBox="0 0 60 72" style="width:96px;height:115px;position:relative"><path d="M30 2 L57 10 L57 34 C57 52 45 64 30 70 C15 64 3 52 3 34 L3 10 Z" fill="#0e1a2e" stroke="#f7d774" stroke-width="3"/><text x="30" y="42" fill="#f7d774" text-anchor="middle" font-family="Anton, sans-serif" font-size="20">UKC</text></svg>'),
                 h('div', { class: 'cb-title' }, 'TRADING CARDS'),
-                h('div', { class: 'cb-sub' }, 'SERIES 1'),
+                h('div', { class: 'cb-sub' }, 'COLLECTION'),
             ),
         );
     }

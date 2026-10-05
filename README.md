@@ -63,7 +63,7 @@ Settings are in `config/market.lua`. Everything below works without the optional
 Settings are in `config/extras.lua`.
 - **Pop report**: every card graded is counted by version (base, foil, each parallel, each hit) and grade. It shows on each card's page in the app and website, on graded auctions, and in the grade reveal ("Pop 1 at 10, none graded higher"). Cracking a slab doesn't remove it, the same as the real report.
 - **Grade reveal**: collecting from the grader plays a reveal for each slab. The label is covered, then slides away, the grade drops in (a GEM MT 10 gets a flash and sparks), then the sub-grades, the pop and the value appear.
-- **Weekly stock**: the items in `Config.Stock.items` only get that many a week (hobby box 10, blaster 25, tin 25, booster box 20) and restock on `restockDay` / `restockHour`. The shop menu shows how many are left, and the app and website show stock and a restock countdown.
+- **Weekly stock**: the items in `Config.Stock.items` only get that many a week, and restock on `restockDay` / `restockHour`. Empty by default; add your own boxes there.
 - **Pack scale** (`ascard_scale`, £60): weigh sealed packs. Packs with a hit are slightly heavier, but every pack varies a little and each reading wobbles, so a heavy pack is a clue, not a guarantee. With `uniquePacks = true` every pack is its own slot with a seal number, so hit packs can't be spotted by stacking. Buying 10 packs then needs 10 free slots.
 - **Slab case** (`ascard_slabcase`, £75): holds 10 graded slabs and only slabs (ox_inventory). The slabs stay with the case, so giving the case gives the slabs. Slabs in a case count in Collection, My cards.
 - **Pack odds page**: the app (Prices, then Pack odds) and the website (`/odds`) list the odds for every pack, box and hit, plus this week's stock.
@@ -79,7 +79,7 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 - **Release days**: add products to `Config.Releases.list` with a price, quantity, per-player limit and start time. Players buy them in the app or on the website when they go live, and they're sent to their locker. Everyone online gets a notification when one goes live. A **test release** is included that goes live 2 minutes after the resource starts. Delete it once you've tried it.
 
 ## Case hits, Top Trumps, renaming
-- **Case hits**: "Legends of the Game" (/25 per player), the rarest insert. About 1 in 12 hobby boxes has one (`Config.CaseHits` in `config/products.lua`). It's never in normal packs, and only Legends, Legendary and Match Winners can be one. It has a gold frame and banner, plays a "CASE HIT" celebration, and counts as a big pull everywhere (Discord, This week, pop report). The odds page shows it.
+- **Case hits** (`Config.CaseHits` in `config/products.lua`): the rarest insert. Off until you list a box in `Config.CaseHits.boxes`. It's never in normal packs.
 - **Top Trumps** (`config/toptrumps.lua`): `/toptrumps`, or target a player with as-interact/ox_target → "Challenge to Top Trumps" (qb-target/textui users can still use the command). Pick no bet or a cash bet (both pay the same, winner takes the pot, a draw refunds it). Each player gets 5 random cards from their own pockets (they need at least 5). The chooser picks Attack or Defence, the higher number wins the round and picks next, and the most rounds won wins. Rare versions get a boost on both stats: Black +10, Red +7, Gold +5, Blue +3, Foil +2, any hit +5. A slow chooser gets their better stat picked after 20 seconds. Leaving, or disconnecting, forfeits. Cards never change hands.
 - **Renaming**: binders and slab cases can be renamed (up to 30 characters, empty resets). In ox_inventory, right-click the item → Rename (add the `buttons` line from `install/ox_inventory_items.lua` to your item definitions). The binder screen also has a RENAME button, and the name shows above the page number. The name is the item's name in the inventory and moves with the item.
 
@@ -104,7 +104,7 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
   - **Repack pool**: see what's in it and take cards out.
   - **Money logs**: search by type or player.
 - **Money logs** (`Config.MoneyLogs`): every money movement is saved for 60 days: shop buys, sell-backs, auctions and fees, repacks, releases, appraisals, grading fees and Top Trumps winnings. Anything £2,500 or more is posted to Discord: `set ascard_log_webhook "..."`. If a player sells £25,000 or more to the shop within 30 minutes, Discord gets a red "check this player" alert.
-- **Sealed boxes** (`Config.Seals`): every hobby box, blaster, tin and booster box gets its own seal number (on the item: "Factory sealed · Seal FS-XXXXXXXX"). Check it in the app or website under **Check → Box seal**. **Shrink wrap** (`ascard_shrinkwrap`, £5 at the shop) lets anyone wrap the right packs back into a box. It looks the same, but the seal check says it isn't a factory seal, and the shop won't buy it. Opening it gives back exactly the packs that were wrapped. A seal that's been opened, or sold to the shop, shows as used.
+- **Sealed boxes** (`Config.Seals`): every box you define in `Config.Boxes` gets its own seal number (on the item: "Factory sealed · Seal FS-XXXXXXXX"). Check it in the app or website under **Check → Box seal**. **Shrink wrap** (`ascard_shrinkwrap`, £5 at the shop) lets anyone wrap the right packs back into a box. It looks the same, but the seal check says it isn't a factory seal, and the shop won't buy it. Opening it gives back exactly the packs that were wrapped. A seal that's been opened, or sold to the shop, shows as used.
 - **Sun and damp** (`Config.Weather`): a raw card left in a glovebox fades after 2 hours. One left in a boot can warp after 4 hours. On the ground, both start after 30 minutes. The damage is worked out when you take the card out. A penny sleeve halves it, a toploader stops it, and slabs are always safe. Fading and warping lower the surface and edge scores, show up on the card, and count when it's graded.
 - **Serial history**: **Check → Card serial** now shows the card's history: when it was pulled, sent for grading and graded (with cert), sales at auction (including lots), cracked slabs, stolen and recovered reports, appraisals, and sales to the shop.
 - **Shop hours** (`Config.ShopHours`): the shop, grader and buyer are open 09:00–23:00 by default. `clock = 'game'` uses the in-game clock instead of real time. `closedDays` can close the shop on set days. The website, app and auctions stay open.
@@ -115,7 +115,7 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 - **Props** (in `stream/`): `ascardpack` in your hand while opening a pack, `asboosterbox` while opening a booster box, and `as_cardbinder` while the binder is open. There is no model for a single card yet.
 - **Sounds** (`html/sounds/`): snap (rip), dealfour (deal), flip, badge (rare pulls) and boxopen. Volume and on/off are in `Config.Sounds`.
 - **Ripping**: packs open in a 3D foil pack. Drag along the top to tear the strip off, then the cards slide out. The pack art is `Config.PackArt`, and each pack can set its own `art`.
-- **Booster box**: the `ascard_booster_box` item gives `Config.BoosterBox.gives` packs.
+- **Booster box**: the `ascard_booster_box` item gives `Config.BoosterBox.gives` packs. It's switched off until you point it at a pack of your own.
 
 ## Card types
 | Type | Item | Effect |
@@ -140,15 +140,26 @@ Each card looks for a photo in this order:
 2. `Config.PhotoUrl` (hosted online), with `{id}` replaced by the card id, e.g. `https://your-host.com/cards/{id}.jpg`
 3. A plain silhouette in the club colours
 
-The card id is the key in `config/cards.lua` (`highland`, `rayban`, `icecake` …). Name each photo after its card id, upload them all to one folder on any image host (Fivemanage, an R2/S3 bucket, a GitHub repo), and set `Config.PhotoUrl`. Portrait photos around 700 px wide work best.
+The card id is the key in your card file (`custom/cards.json` or `custom/cards.lua`). Name each photo after its card id, upload them all to one folder on any image host (Fivemanage, an R2/S3 bucket, a GitHub repo), and set `Config.PhotoUrl`. Portrait photos around 700 px wide work best.
 
-## Adding cards
-```lua
-mycard = { set = 'series1', number = 2000, type = 'star', first = 'First', last = 'Last',
-           club = 'wx', nation = 'WAL', pos = 'FWD', att = 80, def = 40, kit = 9 },
-```
-- `number` must be unique. Nation codes need a flag in `FLAGS` in `html/app.js`. About 90 are included.
-- Never rename a card's key once it's live. Serials and the binder use it.
+## Adding your own series
+Nothing is built in: no cards, no sets and no packs. You make everything.
+
+1. **Make the cards** in the website's Card Creator and put the output in `custom/cards.json` or `custom/cards.lua` (see `custom/README.txt`). Cards go into the set named by their `set` field (default `series2`).
+2. **Define the series** in a config file, e.g. `config/series2.lua` (it already does this for Series 2, Creatures and Los Santos):
+   ```lua
+   Config.Sets.myseries = { label = 'My Series', code = 'MS', hidden = true }   -- hidden until staff switch it on in /cardadmin
+   Config.Packs['ascard_ms_booster'] = {
+       label = 'My Series Booster', set = 'myseries', cards = 5,
+       weights = { player = 70, star = 20, captain = 6, winner = 3, century = 0.8, legend = 0.2 },
+       guaranteed = { count = 1, minRarity = 'star' },
+       foilChance = 0.05,
+   }
+   ```
+3. **Add the pack item** to your inventory (copy an entry from `install/ox_inventory_items_v3.lua`), give it an icon in `html/img/items/`, and add it to the shop list (`Config.Series2.shop` or `Config.Shop.items`).
+4. **Make the pack art** in the website's Pack Creator and set it with `Config.Packs['ascard_ms_booster'].art = 'img/my_pack.png'`.
+
+Until you have made cards and a pack, players have nothing to buy or open. Boxes (`Config.Boxes`), the booster box and releases (`Config.Releases`) are empty too; their config files have examples.
 
 ## Commands (ace: `group.admin`)
 | Command | |
@@ -166,7 +177,6 @@ mycard = { set = 'series1', number = 2000, type = 'star', first = 'First', last 
 - `/testcard` from v1 (usable by anyone) is gone. `/previewcard` is admin only.
 
 ## Migrating
-- The football update replaces the old `ascard_basic` / `ascard_rare` / `ascard_legendary` items and the five test cards. Remove or give back any old cards before switching.
 
 ## Migrating from v1
 - Old `ascard_psa` items with a card stored in a `psa_<serial>` stash (qb-inventory `stashitemsnew`) are **not** migrated automatically. Give those cards back from the stash table if players have any.
@@ -191,7 +201,6 @@ All new tables are created automatically on start. Everything below is switched 
 - Binder covers (`/cardskins`), 8 slab label skins, hold a card in hand (`/cardhand`), and gift a card as a Postal Prime parcel.
 - Giving a card to someone is plain ox_inventory hand-over. There is no trade window.
 
-**Remove before going live**: the `test_hobby_drop` release in `config/community.lua`.
 
 ### Themes
 Card Creator supports Football, Creatures (original) and Los Santos. Each theme is its own set with its own booster

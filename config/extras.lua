@@ -13,10 +13,6 @@ Config.Stock = {
     restockDay = 5,        -- 0 = Sunday, 1 = Monday ... 5 = Friday, 6 = Saturday (server time)
     restockHour = 18,      -- 0-23
     items = {
-        ascard_hobby_box = 10,
-        ascard_blaster   = 25,
-        ascard_tin       = 25,
-        ascard_booster_box = 20,
     },
 }
 

@@ -10,10 +10,8 @@ Config.Clubs = {
     SETS
 --------------------------------------------------------------------------- ]]
 Config.Sets = {
-    series1 = {
-        label = 'Series 1',
-        code = 'S1',
-    },
+    -- empty on purpose: series are added by you (see "Adding your own series" in the README).
+    -- Series 2 / Creatures / Los Santos (config/series2.lua) are the sets the Card Creator fills.
 }
 
 --[[ ---------------------------------------------------------------------------

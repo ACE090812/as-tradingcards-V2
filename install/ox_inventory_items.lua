@@ -3,33 +3,6 @@
 -- If you rename the folder, change it in every `export` line.
 -- Item images: put ascard_*.png in ox_inventory/web/images/
 
-['ascard_booster_pack1'] = {
-    label = 'Series 1 Booster',
-    weight = 20,
-    stack = true,
-    close = true,
-    description = 'Contains 5 trading cards',
-    server = { export = 'as-tradingcards.useItem' },
-},
-
-['ascard_booster_pack2'] = {
-    label = 'Series 1 Mega Booster',
-    weight = 35,
-    stack = true,
-    close = true,
-    description = 'Contains 10 trading cards',
-    server = { export = 'as-tradingcards.useItem' },
-},
-
-['ascard_booster_box'] = {
-    label = 'Series 1 Booster Box',
-    weight = 300,
-    stack = true,
-    close = true,
-    description = 'Contains 12 booster packs',
-    server = { export = 'as-tradingcards.useItem' },
-},
-
 ['ascard_player'] = {
     label = 'Common Card',
     weight = 1,

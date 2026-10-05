@@ -801,7 +801,7 @@
             out += '<div class="seg"><button class="' + (seal ? '' : 'on') + '" data-act="checkMode" data-v="serial">Card serial</button><button class="' + (seal ? 'on' : '') + '" data-act="checkMode" data-v="seal">Box seal</button></div>';
             if (!seal) {
                 out += '<div class="notice">Buying a card from someone? Type in the serial number printed on it to see if it has been reported stolen, and its history.</div>';
-                out += '<div class="panel" style="padding:14px"><label class="field"><span>Serial number</span><input class="input num" id="serial" placeholder="e.g. S1-HIGHLAND-0042" value="' + esc(r ? r.serial : '') + '" autocomplete="off" style="text-transform:uppercase"></label>' +
+                out += '<div class="panel" style="padding:14px"><label class="field"><span>Serial number</span><input class="input num" id="serial" placeholder="e.g. ABC-123456" value="' + esc(r ? r.serial : '') + '" autocomplete="off" style="text-transform:uppercase"></label>' +
                     '<button class="btn block" data-act="checkSerial">' + ic('shield') + ' Check</button></div>';
             } else {
                 out += '<div class="notice">Buying a sealed box second-hand? Type in the seal number on the wrap. A resealed box looks the same, but its seal won’t be on record.</div>';
@@ -974,7 +974,7 @@
                 head = '<h3>Auction this lot</h3><div class="panel list" style="box-shadow:none;background:var(--card2);margin-bottom:10px;max-height:190px;overflow-y:auto">' + sh.lot.map(function (x) {
                     return '<div class="li" style="cursor:default;padding:7px 12px"><div class="th' + (x.kind === 'sealed' ? ' sealed' : '') + '" style="width:34px;height:44px">' + img(x.thumb) + '</div><div class="main"><div class="name" style="font-size:14px">' + esc(x.title) + '</div></div><div class="right small num">' + money(x.value) + '</div></div>';
                 }).join('') + '</div><div class="muted small" style="margin:-4px 0 10px">' + sh.lot.length + ' items · worth about ' + money(total) + ' together</div>' +
-                    '<label class="field"><span>Lot name (optional)</span><input class="input" id="f-title" maxlength="60" placeholder="e.g. Arsenic starter bundle" value="' + esc(sh.title || '') + '"></label>';
+                    '<label class="field"><span>Lot name (optional)</span><input class="input" id="f-title" maxlength="60" placeholder="e.g. Starter bundle" value="' + esc(sh.title || '') + '"></label>';
                 it = { value: total };
             } else {
                 head = '<h3>Auction this item</h3><div class="panel list" style="box-shadow:none;background:var(--card2);margin-bottom:14px"><div class="li" style="cursor:default"><div class="th' + (it.kind === 'sealed' ? ' sealed' : '') + '">' + img(it.thumb) +

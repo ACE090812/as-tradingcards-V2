@@ -6,13 +6,9 @@
 -- more packs (merged into Config.Packs). insertChance = chance a pack holds an autograph / relic.
 -- Packs with a hit weigh a little more in the inventory (Config.Inserts.hitWeight).
 local P = Config.Packs
--- (no built-in packs: each series defines its own, see config/series2.lua)
+-- (Series 1 packs and boxes removed. Add insertChance = 0.01 to a custom pack in custom/cards.lua if you want hits in it.)
 
--- boxes & tins: use them to get their contents (the old Config.BoosterBox still works too)
-Config.Boxes = {
-    -- empty on purpose. Example:
-    -- ['ascard_my_box'] = { label = 'My Box', duration = 4000, gives = { { item = 'ascard_s2_booster', count = 6 } } },
-}
+Config.Boxes = {}
 
 -- chase cards. Numbered like parallels (print runs shared server-wide per player)
 Config.Inserts = {
@@ -56,7 +52,7 @@ Config.Rookies = {}   -- card ids (from your own cards) that get the RC logo
 
 -- sealed product slowly gains value while it stays unopened (sell it back to the buyer)
 Config.Sealed = {
-    released = {},                         -- set release time (unix), e.g. { series2 = 1790380800 }
+    released = {},                         -- set release time (unix), e.g. { myset = 1790380800 }
     growthPerWeek = 0.03,                  -- +3% a week...
     maxMultiplier = 3.0,                   -- ...up to 3x the shop price
     buyerPays = 0.8,                       -- the buyer pays 80% of the current sealed value

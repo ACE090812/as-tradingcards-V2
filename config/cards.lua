@@ -9,10 +9,9 @@ Config.Clubs = {
 --[[ ---------------------------------------------------------------------------
     SETS
 --------------------------------------------------------------------------- ]]
-Config.Sets = {
-    -- empty on purpose: series are added by you (see "Adding your own series" in the README).
-    -- Series 2 / Creatures / Los Santos (config/series2.lua) are the sets the Card Creator fills.
-}
+-- No built-in sets. Every series you make (a card's `set` in custom/cards.lua) creates its own set automatically.
+-- Give a series a proper name / code in Config.Custom.sets (config/custom.lua).
+Config.Sets = {}
 
 --[[ ---------------------------------------------------------------------------
     PORTRAIT LOOKS  (the illustrated player - generic cartoon, not a likeness)

@@ -150,10 +150,8 @@ Config.Parallels = {
     guaranteed = at least `count` cards of `minRarity` type or better
     foilChance = 0.0 - 1.0 per card
 --------------------------------------------------------------------------- ]]
-Config.Packs = {
-    -- empty on purpose: packs belong to a series. config/series2.lua has the packs for the creator sets, and
-    -- the README shows how to add a pack for a series of your own.
-}
+-- No built-in packs. Packs come from your custom series (Config.Packs[...] in custom/cards.lua, made in the Card Creator).
+Config.Packs = {}
 
 Config.PackOpening = {
     duration = 3000,
@@ -178,7 +176,7 @@ Config.BoosterBox = {
     enabled = false,         -- off until you point `gives` at a pack of your own series
     item = 'ascard_booster_box',
     label = 'Booster Box',
-    gives = { item = 'ascard_s2_booster', count = 12 },
+    gives = { item = 'pack_myseries', count = 12 },
     duration = 4000,
     anim = { dict = 'mp_arresting', clip = 'a_uncuff', flag = 49 },
     prop = { model = 'asboosterbox', bone = 57005, pos = vec3(0.1, 0.1, 0.0), rot = vec3(0.0, 10.0, 90.0) },

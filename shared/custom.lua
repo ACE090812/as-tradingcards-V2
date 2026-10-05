@@ -160,10 +160,15 @@ if CC.enabled ~= false then
                 local first, last = c.name:match('^(%S+)%s+(.+)$')
                 if not first then first, last = '', c.name end
                 local st = type(c.stats) == 'table' and c.stats or {}
-                local setId = tostring(CC.creatorSet or (CC.creatorSets or {})[theme] or c.set or CC.defaultSet or 'series2'):lower():gsub('[^%w_]', '')
+                local setId = tostring(CC.creatorSet or c.set or (CC.creatorSets or {})[theme] or CC.defaultSet or 'series2'):lower():gsub('[^%w_]', '')
                 do local cs = tostring(c.set or ''):lower():gsub('[^%w_]', '') setMap[cs] = setMap[cs] or {} setMap[cs][setId] = (setMap[cs][setId] or 0) + 1 setMap['all'] = setMap['all'] or {} setMap['all'][setId] = (setMap['all'][setId] or 0) + 1 end
                 if not Config.Sets[setId] then
-                    Config.Sets[setId] = { label = titleCase(setId), code = setId:gsub('_', ''):sub(1, 3):upper(), hidden = true }
+                    local sc = (CC.sets or {})[setId] or {}
+                    Config.Sets[setId] = {
+                        label = sc.label or titleCase(setId),
+                        code = sc.code or setId:gsub('_', ''):sub(1, 3):upper(),
+                        hidden = CC.creatorSetsHidden ~= false,
+                    }
                 end
                 nextNumber = nextNumber + 1
                 local col = type(c.colours) == 'table' and c.colours or nil
@@ -247,6 +252,15 @@ if CC.enabled ~= false then
                         weights = weights, guaranteed = g, foilChance = CC.creatorPackFoil or 0.05, custom = true,
                     }
                     Custom.packs = (Custom.packs or 0) + 1
+                    local sh = CC.shop or {}
+                    if sh.enabled then
+                        local listed = false
+                        for _, e in ipairs(Config.Shop.items) do if e.item == id then listed = true end end
+                        if not listed then
+                            local price = tonumber((sh.prices or {})[id]) or math.max(1, math.floor(Config.Packs[id].cards * (tonumber(sh.pricePerCard) or 3)))
+                            Config.Shop.items[#Config.Shop.items + 1] = { item = id, price = price, label = ('%s (%d cards)'):format(Config.Packs[id].label, Config.Packs[id].cards) }
+                        end
+                    end
                 end
             end
         end

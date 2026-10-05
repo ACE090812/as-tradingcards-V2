@@ -19,6 +19,7 @@ files {
     'custom/img/*.jpg',
     'custom/img/*.webp',
     'custom/*.json',
+    'custom/*.lua',
     'html/img/playmats/*.png',
     'html/img/playmats/*.jpg',
     'html/img/playmats/*.webp',

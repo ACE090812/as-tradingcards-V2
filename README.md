@@ -145,21 +145,12 @@ The card id is the key in your card file (`custom/cards.json` or `custom/cards.l
 ## Adding your own series
 Nothing is built in: no cards, no sets and no packs. You make everything.
 
-1. **Make the cards** in the website's Card Creator and put the output in `custom/cards.json` or `custom/cards.lua` (see `custom/README.txt`). Cards go into the set named by their `set` field (default `series2`).
-2. **Define the series** in a config file, e.g. `config/series2.lua` (it already does this for Series 2, Creatures and Los Santos):
-   ```lua
-   Config.Sets.myseries = { label = 'My Series', code = 'MS', hidden = true }   -- hidden until staff switch it on in /cardadmin
-   Config.Packs['ascard_ms_booster'] = {
-       label = 'My Series Booster', set = 'myseries', cards = 5,
-       weights = { player = 70, star = 20, captain = 6, winner = 3, century = 0.8, legend = 0.2 },
-       guaranteed = { count = 1, minRarity = 'star' },
-       foilChance = 0.05,
-   }
-   ```
-3. **Add the pack item** to your inventory (copy an entry from `install/ox_inventory_items_v3.lua`), give it an icon in `html/img/items/`, and add it to the shop list (`Config.Series2.shop` or `Config.Shop.items`).
-4. **Make the pack art** in the website's Pack Creator and set it with `Config.Packs['ascard_ms_booster'].art = 'img/my_pack.png'`.
+1. **Make the cards** in the website's Card Creator and paste the output into `custom/cards.lua` (or `custom/cards.json`, see `custom/README.txt`). Each card's `set` becomes its own series, created automatically. Give a series a proper name and serial code in `Config.Custom.sets` (`config/custom.lua`).
+2. **Make a pack** for the series: add `Config.Packs['pack_myseries'] = { label = '...', set = 'myseries', cards = 5, rates = { ... } }` to `custom/cards.lua`, or build one in the Card Creator.
+3. **Add the pack item** to your inventory (see `install/ox_inventory_items.lua`) with an icon in `html/img/items/`. With `Config.Custom.shop.enabled`, every custom pack is added to the card shop automatically, at `pricePerCard` per card or the price you set in `Config.Custom.shop.prices`.
+4. **Pack art**: make it in the website's Pack Creator and set `Config.Packs['pack_myseries'].art = 'img/my_pack.png'`.
 
-Until you have made cards and a pack, players have nothing to buy or open. Boxes (`Config.Boxes`), the booster box and releases (`Config.Releases`) are empty too; their config files have examples.
+Until you have made cards and a pack, players have nothing to buy or open. `Config.Boxes`, the booster box and `Config.Releases` are empty too; their config files have examples.
 
 ## Commands (ace: `group.admin`)
 | Command | |

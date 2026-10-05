@@ -69,5 +69,5 @@ PACK ART (front of the pack players rip open)
 
 CARD PICTURES
   The game shows a card as its picture when html/img/cards/<card id>.png (or .webp / .jpg) exists. Make them in the website's Card Creator
-  ("Card pictures (.zip)" or "Download everything") and unzip into html/img/. Without a picture the game draws its own card, which looks different.
+  ("Card pictures (.zip)" or "Download everything") and unzip into html/img/. Cards with a finish also get <id>_foil.png, which the game uses to draw the same foil as the website. Without a picture the game draws its own card, which looks different.
   Config.CardFaceImages = false turns it off. Remake a card's picture after you change the card.

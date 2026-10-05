@@ -372,35 +372,198 @@ ${HAIR[style](hair)}${beard}
         );
     }
 
+    /* ---------- card pictures with the Card Creator's foil finish (same shader as the website) ---------- */
+    const FIN_ID = { none: 0, holo: 1, reverse: 2, cosmos: 3, ice: 4, gold: 5, rainbow: 6 };
+    const FIN_ART = { holo: 1, cosmos: 1, ice: 1, rainbow: 1 }, FIN_FRAME = { reverse: 1, ice: 1, gold: 1, rainbow: 1 };
+    const GL_VS = 'attribute vec2 a;varying vec2 v;void main(){v=a*.5+.5;gl_Position=vec4(a,0.,1.);}';
+    const GL_FS = `precision highp float;
+varying vec2 v;
+uniform sampler2D uFace, uFoil;
+uniform vec2 uTilt, uRes;
+uniform float uFin, uStr, uArt, uFrame;
+float h1(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+vec2 h2(vec2 p){return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);}
+vec3 film(float t){return .5+.5*cos(6.28318*(t+vec3(0.,.33,.67)));}
+vec3 voro(vec2 x){vec2 n=floor(x),f=fract(x);float d1=8.,d2=8.;vec2 id=vec2(0.);
+ for(int j=-1;j<=1;j++)for(int i=-1;i<=1;i++){vec2 g=vec2(float(i),float(j));vec2 r=g+h2(n+g)-f;float d=dot(r,r);
+  if(d<d1){d2=d1;d1=d;id=n+g;}else if(d<d2)d2=d;}
+ return vec3(id,sqrt(d2)-sqrt(d1));}
+void main(){
+ vec4 face=texture2D(uFace,v);
+ if(face.a<.004){gl_FragColor=vec4(0.);return;}
+ vec3 base=face.rgb/face.a;
+ vec4 fm=texture2D(uFoil,v);
+ float foil=clamp(fm.r*uArt+fm.g*uFrame,0.,1.)*step(.5,uFin);
+ vec2 px=v*uRes;
+ vec2 p=(v-.5)*vec2(.716,1.);
+ vec3 N0=normalize(vec3(uTilt.x*.62,uTilt.y*.5,1.));
+ vec3 P=vec3(p,-(p.x*N0.x+p.y*N0.y)/N0.z);
+ vec3 V=normalize(vec3(0.,0.,2.4)-P);
+ vec3 L=normalize(vec3(-.55,.75,1.3)-P);
+ vec3 Hh=normalize(L+V);
+ vec3 N=N0;float shin=26.,hue=0.,gain=1.,edge=1.,kh=2.4;
+ int fin=int(uFin+.5);
+ if(fin==1||fin==6){
+  vec2 dir=normalize(vec2(1.,1.));
+  float s=dot(px,dir)/(fin==6?3.:4.2);
+  float li=floor(s),fr=fract(s),r=h1(vec2(li,3.));
+  vec2 t=vec2(dir.y,-dir.x);
+  float wob=h1(floor(px/24.)+li)*.25;
+  N=normalize(N0+vec3(dir*(fr-.5)*.22+t*(r-.5+wob)*.12,0.));
+  hue=r*.12;shin=55.;gain=.85;
+ }else if(fin==2||fin==3){
+  float cs=fin==3?3.4:2.2;
+  vec2 c=floor(px/cs),r=h2(c);
+  N=normalize(N0+vec3((r-.5)*.9,0.));
+  shin=fin==3?260.:200.;hue=h1(c+7.)*.7;gain=fin==3?2.2:1.8;
+  if(fin==3){float star=step(.985,h1(c+3.1));gain+=star*2.5;}
+ }else if(fin==4){
+  vec3 vo=voro(px/34.);
+  vec2 r=h2(vo.xy);
+  N=normalize(N0+vec3((r-.5)*.42,0.));
+  edge=.4+.6*smoothstep(.0,.08,vo.z);
+  shin=70.;hue=r.x*.5;gain=1.;
+ }else if(fin==5){
+  float r=h1(vec2(floor(px.y/1.4),floor(px.x/120.)));
+  N=normalize(N0+vec3(0.,(r-.5)*.22,0.));
+  shin=28.;gain=.8;
+ }
+ float ndh=max(dot(N,Hh),0.),ndv=max(dot(N,V),0.),ndl=max(dot(N0,L),0.);
+ vec3 col=base*(.8+.25*ndl);
+ if(foil>.001){
+  vec3 ir=film(ndv*kh+hue+(v.x-v.y)*.4);
+  ir=mix(vec3(dot(ir,vec3(.333))),ir,.5);
+  vec3 metal=fin==5?vec3(1.,.8,.42):ir;
+  float spec=pow(ndh,shin),env=pow(ndh,10.);
+  vec3 refl=metal*(spec*gain+env*.07)*edge;
+  vec3 printed=mix(base*.88,base*(.75+.4*metal),.25*env);
+  col=mix(col,printed,foil*.5)+refl*foil*uStr;
+ }
+ float c0=max(dot(N0,Hh),0.);
+ col+=vec3(pow(c0,90.)*.38+pow(c0,10.)*.05);
+ col+=vec3(pow(1.-max(dot(N0,V),0.),3.)*.12);
+ col=min(col,vec3(1.));
+ gl_FragColor=vec4(col*face.a,face.a);
+}`;
+    const GLW = 630, GLH = 880;
+    let GLR = null, GLTRIED = false;
+    const glImgs = new Map();
+    const glLoad = url => { if (!glImgs.has(url)) glImgs.set(url, new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = url; })); return glImgs.get(url); };
+    function glRenderer() {
+        if (GLR || GLTRIED) return GLR;
+        GLTRIED = true;
+        try {
+            const cv = document.createElement('canvas'); cv.width = GLW; cv.height = GLH;
+            const gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: true, preserveDrawingBuffer: true });
+            if (!gl) return null;
+            const sh = (t, src) => { const x = gl.createShader(t); gl.shaderSource(x, src); gl.compileShader(x); if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(x)); return x; };
+            const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, GL_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, GL_FS)); gl.linkProgram(pr); gl.useProgram(pr);
+            gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+            const loc = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+            const U = n => gl.getUniformLocation(pr, n);
+            const u = { face: U('uFace'), foil: U('uFoil'), tilt: U('uTilt'), res: U('uRes'), fin: U('uFin'), str: U('uStr'), art: U('uArt'), frame: U('uFrame') };
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+            gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+            gl.uniform1i(u.face, 0); gl.uniform1i(u.foil, 1);
+            const texs = new Map();
+            const tex = (url, im) => {
+                if (texs.has(url)) return texs.get(url);
+                const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+                texs.set(url, t); return t;
+            };
+            GLR = {
+                canvas: cv,
+                draw(p, tx, ty) {
+                    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex(p.faceUrl, p.face));
+                    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tex(p.foilUrl, p.foil));
+                    gl.viewport(0, 0, GLW, GLH); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+                    gl.uniform2f(u.tilt, tx, ty); gl.uniform2f(u.res, GLW, GLH);
+                    gl.uniform1f(u.fin, p.fin); gl.uniform1f(u.str, p.str); gl.uniform1f(u.art, p.art); gl.uniform1f(u.frame, p.frame);
+                    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                },
+            };
+        } catch (e) { console.error(e); GLR = null; }
+        return GLR;
+    }
+    // one pointer listener tilts whichever foil picture the pointer is over (everything else stays at its resting angle)
+    const glCanvases = new Set();
+    let glRaf = 0, glPtr = null;
+    const GL_REST = [-0.35, 0.3];
+    window.addEventListener('pointermove', e => {
+        glPtr = e;
+        if (glRaf) return;
+        glRaf = requestAnimationFrame(() => {
+            glRaf = 0;
+            glCanvases.forEach(cv => {
+                if (!cv.isConnected) { glCanvases.delete(cv); return; }
+                const r = cv.getBoundingClientRect();
+                if (!r.width) return;
+                const over = glPtr.clientX >= r.left - r.width * .15 && glPtr.clientX <= r.right + r.width * .15 && glPtr.clientY >= r.top - r.height * .1 && glPtr.clientY <= r.bottom + r.height * .1;
+                if (over) { cv._glTilted = true; cv._glDraw(Math.max(-1, Math.min(1, ((glPtr.clientX - r.left) / r.width) * 2 - 1)), Math.max(-1, Math.min(1, ((glPtr.clientY - r.top) / r.height) * 2 - 1))); }
+                else if (cv._glTilted) { cv._glTilted = false; cv._glDraw(GL_REST[0], GL_REST[1]); }
+            });
+        });
+    }, { passive: true });
+    // the card's picture drawn through the website's foil shader into a normal canvas. Returns null when it can't (no WebGL, missing files).
+    function foilCanvas(card) {
+        const fin = card.finish && card.finish !== 'none' ? card.finish : null;
+        if (!fin || !card.foilMap || FIN_ID[fin] == null || !glRenderer()) return null;
+        const cv = h('canvas', { class: 'pic pic-gl', width: String(GLW), height: String(GLH) });
+        const ctx = cv.getContext('2d');
+        let params = null;
+        cv._glDraw = (tx, ty) => {
+            if (!params) return;
+            const g = glRenderer(); if (!g) return;
+            g.draw(params, tx, ty);
+            ctx.clearRect(0, 0, GLW, GLH); ctx.drawImage(g.canvas, 0, 0);
+        };
+        Promise.all([glLoad(card.face), glLoad(card.foilMap)]).then(([face, foil]) => {
+            if (!face || !foil) { cv.classList.add('gl-failed'); return; }
+            params = { faceUrl: card.face, foilUrl: card.foilMap, face, foil, fin: FIN_ID[fin], art: FIN_ART[fin] ? 1 : 0, frame: FIN_FRAME[fin] ? 1 : 0, str: Math.max(0.2, Math.min(2.5, Number(card.foilStrength) || 1)) };
+            cv._glDraw(GL_REST[0], GL_REST[1]);
+            glCanvases.add(cv);
+            cv.classList.add('gl-ready');
+        });
+        return cv;
+    }
+
     // a card shown as its picture (html/img/cards/<id>.png, from the website's Card Creator) instead of the drawn template
     function pictureFace(card) {
         const t = card.rarity || {};
         const par = card.parallel || null;
         const fx = Object.assign({}, t.effects || {}, par ? par.effects || {} : {});
         const fin = card.finish && card.finish !== 'none' ? card.finish : null;
+        const gl = foilCanvas(card);          // the website's own foil, when the foil map is there
         const classes = ['fc', 'fc-pic', t.id, fx.glow && 'glow', card.foil && 'foil', par && 'par', par && ('par-' + par.id), fx.pulse && 'pulse',
-            fin && ('fin-' + fin), card.insert && 'ins', card.error && ('err-' + card.error.id)].filter(Boolean).join(' ');
+            fin && !gl && ('fin-' + fin), gl && 'has-gl', card.insert && 'ins', card.error && ('err-' + card.error.id)].filter(Boolean).join(' ');
         const strength = Math.max(0.2, Math.min(2, Number(card.foilStrength) || 1));
         const layers = [];
-        if (card.foil && !fin) layers.push(h('div', { class: 'fx fx-holo' }));
-        if (fin) layers.push(h('div', { class: 'fx fx-fin' }));
+        if (!gl) {
+            if (card.foil && !fin) layers.push(h('div', { class: 'fx fx-holo' }));
+            if (fin) layers.push(h('div', { class: 'fx fx-fin' }));
+        }
         if (fx.sweep) layers.push(h('div', { class: 'fx fx-sweep' }));
-        layers.push(h('div', { class: 'fx fx-follow' }));
-        const chips = [];
-        if (par) chips.push(h('div', { class: 'pic-chip par', style: { '--stamp': col(par.stamp, '#333') } }, `${(par.label || '').toUpperCase()} ${par.max === 1 ? '1/1' : `${String(par.print || 0).padStart(2, '0')}/${par.max}`}`));
-        if (card.insert) chips.push(h('div', { class: 'pic-chip' }, (card.insert.label || '').toUpperCase()));
-        if (card.error) chips.push(h('div', { class: 'pic-chip err' }, (card.error.label || 'ERROR').toUpperCase()));
-        if (card.rookie) chips.push(h('div', { class: 'pic-chip' }, 'RC'));
+        if (!gl) layers.push(h('div', { class: 'fx fx-follow' }));
+        // one tidy strip along the bottom: parallel / insert / error / rookie tags, then the print number and serial
+        const tags = [];
+        if (par) tags.push(h('span', { class: 'pp par', style: { '--stamp': col(par.stamp, '#444') } }, `${(par.label || '').toUpperCase()} ${par.max === 1 ? '1/1' : `${String(par.print || 0).padStart(2, '0')}/${par.max}`}`));
+        if (card.insert) tags.push(h('span', { class: 'pp' }, (card.insert.label || '').toUpperCase()));
+        if (card.error) tags.push(h('span', { class: 'pp err' }, (card.error.label || 'ERROR').toUpperCase()));
+        if (card.rookie) tags.push(h('span', { class: 'pp' }, 'RC'));
         const info = [printText(card), card.serial].filter(Boolean).join('  ·  ');
         return h('div', {
             class: classes,
             style: { '--pulse': col(fx.pulse, '#ffffff'), '--sweep': fx.sweep || 'transparent', '--speed': fx.speed || '4.5s', '--fs': String(strength) },
         },
             h('div', { class: 'fc-in' },
-                h('img', { class: 'pic', src: card.face, draggable: 'false' }),
+                h('img', { class: 'pic pic-img', src: card.face, draggable: 'false' }),
+                gl,
                 layers,
-                chips.length ? h('div', { class: 'pic-chips' }, chips) : null,
-                info ? h('div', { class: 'pic-print' }, info) : null,
+                (tags.length || info) ? h('div', { class: 'pic-print' }, tags, info ? h('span', { class: 't' }, info) : null) : null,
             ),
         );
     }
@@ -485,8 +648,8 @@ ${HAIR[style](hair)}${beard}
         const off = window.CondFX.centering && window.CondFX.centering(card.cond.c);
         if (off && face.classList && face.classList.contains('fc-pic')) {
             // picture card: slide the print inside the card stock, so one border looks thicker and the opposite one is cut off
-            const im = face.querySelector('img.pic');
-            if (im) im.style.transform = `translate(${(off.dx * 1.4).toFixed(1)}px, ${(off.dy * 1.4).toFixed(1)}px)`;
+            const im = face.querySelectorAll('.pic');
+            im.forEach(el => el.style.transform = `translate(${(off.dx * 1.4).toFixed(1)}px, ${(off.dy * 1.4).toFixed(1)}px)`);
         } else if (off && face.classList && face.classList.contains('fc')) {
             const b = 6, p = v => `${Math.max(0.5, b + v).toFixed(1)}px`;
             face.style.padding = `${p(off.dy)} ${p(-off.dx)} ${p(-off.dy)} ${p(off.dx)}`;

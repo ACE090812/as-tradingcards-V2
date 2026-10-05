@@ -145,8 +145,9 @@ The card id is the key in your card file (`custom/cards.json` or `custom/cards.l
 ## Card pictures (so a card looks the same as in the Card Creator)
 The game draws its own football-style card by default, which looks different from the card you design on the website.
 To show your design instead: in the Card Creator press **Card pictures (.zip)** (or **Download everything**), and unzip so the pictures
-sit at `html/img/cards/<card id>.png` (`.webp` and `.jpg` also work). When a picture exists for a card the game shows that picture, with the
-rarity glow, foil finish (ice, holo, rainbow and so on), parallel and insert tags, the print number and serial, and all the wear on top
+sit at `html/img/cards/<card id>.png` (`.webp` and `.jpg` also work). When a picture exists for a card the game shows that picture. A card with a foil finish also has `<card id>_foil.png`, and the game runs the same foil shader as
+the website (ice, holo, reverse holo, cosmos, gold, rainbow), so the foil looks the same and moves as you tilt the card (it needs WebGL; without it a simpler glow is used).
+Parallel and insert tags, the print number and serial sit in a strip along the bottom, and all the wear shows on top
 (dirt, scratches, bent corners, creases and the off-centre print). Cards with no picture are drawn as before. Set `Config.CardFaceImages = false`
 to switch this off. Change a card in the creator and you need to make its picture again. The same picture is used for the card's inventory icon.
 

@@ -1135,21 +1135,25 @@ html, body {
 
 
 /* ---------- card shown as its picture (html/img/cards/<id>.png) ---------- */
+.fc-pic canvas.pic-gl { opacity: 0; }
+.fc-pic canvas.pic-gl.gl-ready { opacity: 1; }
+.fc-pic.has-gl img.pic-img { visibility: visible; }
+.fc-pic.has-gl canvas.pic-gl.gl-ready ~ .fx { }
 .fc.fc-pic { padding: 0; background: #e9e5da; --glit: #ffffff; }
 .fc-pic .fc-in { border-radius: 14px; background: #e9e5da; }
-.fc-pic img.pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block; user-select: none; -webkit-user-drag: none; }
+.fc-pic .pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block; user-select: none; -webkit-user-drag: none; }
 .fc-pic .pic-print {
-    position: absolute; left: 50%; bottom: 7px; transform: translateX(-50%); z-index: 6; max-width: 92%;
-    padding: 1px 9px; border-radius: 8px; background: rgba(0, 0, 0, .55); color: #fff;
-    font: 700 10px/1.5 'Barlow Condensed', sans-serif; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    position: absolute; left: 50%; bottom: 3px; transform: translateX(-50%); z-index: 6; max-width: 78%;
+    padding: 2px 9px; border-radius: 8px; background: rgba(0, 0, 0, .55); color: #fff;
+    font: 700 9px/1.45 'Barlow Condensed', sans-serif; letter-spacing: .05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.fc-pic .pic-chips { position: absolute; left: 8px; top: 8px; z-index: 6; display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
-.fc-pic .pic-chip {
-    padding: 1px 7px; border-radius: 6px; background: rgba(0, 0, 0, .65); color: #fff; border: 1px solid rgba(255, 255, 255, .35);
-    font: 700 11px/1.4 'Barlow Condensed', sans-serif; letter-spacing: .06em;
+.fc-pic .pic-print .pp {
+    display: inline-block; margin-right: 6px; padding: 0 7px; border-radius: 6px; background: rgba(255, 255, 255, .16); color: #fff;
+    border: 1px solid rgba(255, 255, 255, .35); font-weight: 800; letter-spacing: .08em;
 }
-.fc-pic .pic-chip.par { background: var(--stamp, #333); }
-.fc-pic .pic-chip.err { background: #b3261e; }
+.fc-pic .pic-print .pp.par { background: var(--stamp, #444); border-color: rgba(255, 255, 255, .55); }
+.fc-pic .pic-print .pp.err { background: #b3261e; }
+.fc-pic .pic-print .t { opacity: .95; }
 
 /* finishes from the Card Creator, drawn as light effects over the picture. --fs is the foil strength */
 .fc-pic .fx-fin { opacity: calc(.3 * var(--fs, 1)); mix-blend-mode: screen; }

@@ -158,6 +158,20 @@ function Utils.CardFace(cardId)
     return nil
 end
 
+-- the matching foil map (html/img/cards/<cardId>_foil.png, also made by the Card Creator) lets the game draw the same finish as the website
+local foilCache = {}
+function Utils.CardFoilMap(cardId)
+    if not cardId or Config.CardFaceImages == false then return nil end
+    local hit = foilCache[cardId]
+    if hit ~= nil then return hit or nil end
+    if LoadResourceFile(GetCurrentResourceName(), ('html/img/cards/%s_foil.png'):format(cardId)) then
+        foilCache[cardId] = ('img/cards/%s_foil.png'):format(cardId)
+        return foilCache[cardId]
+    end
+    foilCache[cardId] = false
+    return nil
+end
+
 --[[ Builds the table the NUI renders from card metadata ]]
 function Utils.BuildDisplay(meta, itemName)
     meta = meta or {}
@@ -181,6 +195,7 @@ function Utils.BuildDisplay(meta, itemName)
         look = card and card.look,
         image = card and card.image,
         face = card and Utils.CardFace(card.id),
+        foilMap = card and Utils.CardFoilMap(card.id),
         code = Utils.CardCode(card),
         club = { key = card and card.club, label = club.label, short = club.short, c1 = club.c1, c2 = club.c2, text = club.text, badge = club.badge },
         setLabel = set and set.label,

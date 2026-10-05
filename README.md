@@ -113,7 +113,6 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 
 ## Props, sounds and pack ripping
 - **Props** (in `stream/`): `ascardpack` in your hand while opening a pack, `asboosterbox` while opening a booster box, and `as_cardbinder` while the binder is open. There is no model for a single card yet.
-- **Sound credit**: the sound files were originally noted as coming from KamuiKody's k-pokemontcg. Check the licence, or replace them, before you release or sell the script.
 - **Sounds** (`html/sounds/`): snap (rip), dealfour (deal), flip, badge (rare pulls) and boxopen. Volume and on/off are in `Config.Sounds`.
 - **Ripping**: packs open in a 3D foil pack. Drag along the top to tear the strip off, then the cards slide out. The pack art is `Config.PackArt`, and each pack can set its own `art`.
 - **Booster box**: the `ascard_booster_box` item gives `Config.BoosterBox.gives` packs.

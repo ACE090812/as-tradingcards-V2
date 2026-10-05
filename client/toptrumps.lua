@@ -38,18 +38,57 @@ end
 
 RegisterCommand(TT.command or 'toptrumps', function() challenge() end, false)
 
--- ox_target on other players
+-- Target option on other players: ox_target has a "global player" export that tracks everyone
+-- automatically; as-interact and qb-target don't, so for those we keep a light poll adding/
+-- removing a per-player entity interaction as players come in and out of the session.
 CreateThread(function()
-    if not TT.target or GetResourceState('ox_target') ~= 'started' then return end
-    exports.ox_target:addGlobalPlayer({
-        {
-            name = 'ascard_toptrumps', icon = 'fas fa-clone', label = 'Challenge to Top Trumps', distance = TT.range or 4.0,
-            onSelect = function(data)
-                local id = data and data.entity and GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.entity))
-                if id and id > 0 then challenge(id) end
-            end,
-        },
-    })
+    if not TT.target then return end
+
+    if GetResourceState('ox_target') == 'started' then
+        exports.ox_target:addGlobalPlayer({
+            {
+                name = 'ascard_toptrumps', icon = 'fas fa-clone', label = 'Challenge to Top Trumps', distance = TT.range or 4.0,
+                onSelect = function(data)
+                    local id = data and data.entity and GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.entity))
+                    if id and id > 0 then challenge(id) end
+                end,
+            },
+        })
+        return
+    end
+
+    if GetResourceState('as-interact') ~= 'started' then return end
+
+    local tracked = {} -- [serverId] = interaction id
+    while true do
+        local myPed = PlayerPedId()
+        local seen = {}
+        for _, playerIndex in ipairs(GetActivePlayers()) do
+            local ped = GetPlayerPed(playerIndex)
+            if ped ~= myPed and DoesEntityExist(ped) then
+                local id = GetPlayerServerId(playerIndex)
+                seen[id] = true
+                if not tracked[id] then
+                    tracked[id] = exports['as-interact']:AddEntityInteraction({
+                        netId = NetworkGetNetworkIdFromEntity(ped),
+                        distance = TT.range or 4.0,
+                        interactDst = TT.range or 4.0,
+                        options = {
+                            { name = 'ascard_toptrumps', label = 'Challenge to Top Trumps',
+                              action = function() challenge(id) end },
+                        },
+                    })
+                end
+            end
+        end
+        for id, interactionId in pairs(tracked) do
+            if not seen[id] then
+                exports['as-interact']:RemoveInteraction(interactionId)
+                tracked[id] = nil
+            end
+        end
+        Wait(3000)
+    end
 end)
 
 RegisterNetEvent('as-tradingcards:client:ttInvite', function(inv)

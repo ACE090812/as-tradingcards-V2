@@ -7,7 +7,7 @@ Trading cards for **QBCore, QBX and ESX**: Attack/Defence stats, six card types 
 - One framework: `qbx_core`, `qb-core` or `es_extended`
 - One inventory: `ox_inventory` (any framework) or `qb-inventory` / ps- / lj-inventory (QBCore only)
   - ESX **needs** ox_inventory, because the default ESX inventory has no item metadata
-- A target (optional): `ox_target` or `qb-target`. Without one, it falls back to an ox_lib `[E]` prompt
+- A target (optional): `as-interact`, `ox_target` or `qb-target`. Without one, it falls back to an ox_lib `[E]` prompt
 
 Everything is detected automatically. You can force a choice in `config/config.lua` (`Config.Framework`, `Config.Inventory`, `Config.Target`).
 
@@ -80,7 +80,7 @@ Settings: `Config.Auctions` in `config/market.lua` (lots, offers, ratings) and `
 
 ## Case hits, Top Trumps, renaming
 - **Case hits**: "Legends of the Game" (/25 per player), the rarest insert. About 1 in 12 hobby boxes has one (`Config.CaseHits` in `config/products.lua`). It's never in normal packs, and only Legends, Legendary and Match Winners can be one. It has a gold frame and banner, plays a "CASE HIT" celebration, and counts as a big pull everywhere (Discord, This week, pop report). The odds page shows it.
-- **Top Trumps** (`config/toptrumps.lua`): `/toptrumps`, or target a player with ox_target → "Challenge to Top Trumps". Pick no bet or a cash bet (both pay the same, winner takes the pot, a draw refunds it). Each player gets 5 random cards from their own pockets (they need at least 5). The chooser picks Attack or Defence, the higher number wins the round and picks next, and the most rounds won wins. Rare versions get a boost on both stats: Black +10, Red +7, Gold +5, Blue +3, Foil +2, any hit +5. A slow chooser gets their better stat picked after 20 seconds. Leaving, or disconnecting, forfeits. Cards never change hands.
+- **Top Trumps** (`config/toptrumps.lua`): `/toptrumps`, or target a player with as-interact/ox_target → "Challenge to Top Trumps" (qb-target/textui users can still use the command). Pick no bet or a cash bet (both pay the same, winner takes the pot, a draw refunds it). Each player gets 5 random cards from their own pockets (they need at least 5). The chooser picks Attack or Defence, the higher number wins the round and picks next, and the most rounds won wins. Rare versions get a boost on both stats: Black +10, Red +7, Gold +5, Blue +3, Foil +2, any hit +5. A slow chooser gets their better stat picked after 20 seconds. Leaving, or disconnecting, forfeits. Cards never change hands.
 - **Renaming**: binders and slab cases can be renamed (up to 30 characters, empty resets). In ox_inventory, right-click the item → Rename (add the `buttons` line from `install/ox_inventory_items.lua` to your item definitions). The binder screen also has a RENAME button, and the name shows above the page number. The name is the item's name in the inventory and moves with the item.
 
 ## Repacks, appraisal letters, Pristine 10, stats, market report

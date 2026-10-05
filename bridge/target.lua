@@ -1,11 +1,13 @@
--- Client-side target bridge: ox_target / qb-target / ox_lib textui fallback
+-- Client-side target bridge: as-interact / ox_target / qb-target / ox_lib textui fallback
 Target = { name = nil }
 
 local function started(res) return GetResourceState(res) == 'started' end
 
 do
     local cfg = Config.Target
-    if cfg == 'ox' or (cfg == 'auto' and started('ox_target')) then
+    if cfg == 'interact' or (cfg == 'auto' and started('as-interact')) then
+        Target.name = 'interact'
+    elseif cfg == 'ox' or (cfg == 'auto' and started('ox_target')) then
         Target.name = 'ox'
     elseif cfg == 'qb' or (cfg == 'auto' and started('qb-target')) then
         Target.name = 'qb'
@@ -14,6 +16,11 @@ do
     end
 end
 
+-- as-interact id bookkeeping: its Add* exports return an id used to remove/update later, but
+-- AddEntity/RemoveEntity below are called by entity handle (same shape ox_target/qb-target
+-- expect), so we keep our own entity -> id map for that backend.
+local interactIds = {}
+
 -- textui registry: entity -> options
 local textEntities = {}
 local textShown = false
@@ -21,7 +28,22 @@ local activeEntity
 
 -- options: { { label, icon, onSelect } }
 function Target.AddEntity(entity, options)
-    if Target.name == 'ox' then
+    if Target.name == 'interact' then
+        local opts = {}
+        for i, o in ipairs(options) do
+            opts[i] = {
+                name = ('ascard_%d_%d'):format(entity, i),
+                label = o.label,
+                action = function() o.onSelect() end,
+            }
+        end
+        interactIds[entity] = exports['as-interact']:AddLocalEntityInteraction({
+            entity = entity,
+            distance = Config.InteractDistance,
+            interactDst = Config.InteractDistance,
+            options = opts,
+        })
+    elseif Target.name == 'ox' then
         local opts = {}
         for i, o in ipairs(options) do
             opts[i] = {
@@ -44,7 +66,15 @@ function Target.AddEntity(entity, options)
 end
 
 function Target.RemoveEntity(entity)
-    if Target.name == 'ox' then
+    if Target.name == 'interact' then
+        local id = interactIds[entity]
+        if id then
+            exports['as-interact']:RemoveInteraction(id)
+            interactIds[entity] = nil
+        else
+            exports['as-interact']:RemoveInteractionByEntity(entity)
+        end
+    elseif Target.name == 'ox' then
         exports.ox_target:removeLocalEntity(entity)
     elseif Target.name == 'qb' then
         exports['qb-target']:RemoveTargetEntity(entity)
@@ -57,10 +87,24 @@ function Target.RemoveEntity(entity)
     end
 end
 
--- a spot in the world (no entity): ox_target sphere / qb-target circle / textui point
+-- a spot in the world (no entity): as-interact point / ox_target sphere / qb-target circle / textui point
 local textPoints = {}
 function Target.AddPoint(id, coords, radius, options)
-    if Target.name == 'ox' then
+    if Target.name == 'interact' then
+        local opts = {}
+        for i, o in ipairs(options) do
+            opts[i] = { name = ('%s_%d'):format(id, i), label = o.label, action = function() o.onSelect() end }
+        end
+        -- as-interact has no separate radius/zone concept - distance/interactDst already define
+        -- how close the player must be, so radius maps onto interactDst (matches the sphere's size).
+        return exports['as-interact']:AddInteraction({
+            coords = coords,
+            distance = Config.InteractDistance + 0.5,
+            interactDst = radius,
+            name = id,
+            options = opts,
+        })
+    elseif Target.name == 'ox' then
         local opts = {}
         for i, o in ipairs(options) do
             opts[i] = { name = ('%s_%d'):format(id, i), label = o.label, icon = o.icon, distance = Config.InteractDistance + 0.5, onSelect = function() o.onSelect() end }
@@ -79,7 +123,8 @@ end
 
 function Target.RemovePoint(zone)
     if not zone then return end
-    if Target.name == 'ox' then exports.ox_target:removeZone(zone)
+    if Target.name == 'interact' then exports['as-interact']:RemoveInteraction(zone)
+    elseif Target.name == 'ox' then exports.ox_target:removeZone(zone)
     elseif Target.name == 'qb' then exports['qb-target']:RemoveZone(zone)
     else textPoints[zone] = nil end
 end

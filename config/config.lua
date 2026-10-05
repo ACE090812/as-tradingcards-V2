@@ -7,12 +7,12 @@ Config.Debug = false
     'auto' detects in this order:
       Framework : qbx_core -> qb-core -> es_extended
       Inventory : ox_inventory -> qb-inventory (also ps-/lj-inventory via QBCore player functions)
-      Target    : ox_target -> qb-target -> 'textui' (ox_lib [E] prompt)
+      Target    : as-interact -> ox_target -> qb-target -> 'textui' (ox_lib [E] prompt)
     ESX needs ox_inventory (the default ESX inventory has no item metadata).
 --------------------------------------------------------------------------- ]]
 Config.Framework = 'auto'   -- 'auto' | 'qbx' | 'qb' | 'esx'
 Config.Inventory = 'auto'   -- 'auto' | 'ox' | 'qb'
-Config.Target    = 'auto'   -- 'auto' | 'ox' | 'qb' | 'textui'
+Config.Target    = 'auto'   -- 'auto' | 'interact' | 'ox' | 'qb' | 'textui'
 
 -- qb-inventory only: fallback slot count if it can't be read from the inventory
 Config.QBMaxSlots = 41

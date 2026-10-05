@@ -1,33 +1,26 @@
 -- Add to ox_inventory/data/items.lua  (replace the old ascard_* entries)
--- IMPORTANT: 'as-tradingcards' below must match this resource's folder name.
--- If you rename the folder, change it in every `export` line.
+-- Folder name used in every export below: as-tradingcards-V2  (must match your resource folder exactly)
 -- Item images: put ascard_*.png in ox_inventory/web/images/
 
-['ascard_booster_pack1'] = {
-    label = 'Series 1 Booster',
-    weight = 20,
-    stack = true,
+-- custom ACE Studios pack
+['acestudios'] = {
+    label = 'ACE Studios',
+    weight = 10,
+    stack = false,
     close = true,
-    description = 'Contains 5 trading cards',
-    server = { export = 'as-tradingcards.useItem' },
+    description = 'Common trading card',
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
-['ascard_booster_pack2'] = {
-    label = 'Series 1 Mega Booster',
-    weight = 35,
+-- One item per custom pack. Copy this block for each new series pack, change the key and label.
+-- The key must match the pack name in custom/cards.lua (Config.Packs['pack_xxx']).
+['pack_acestudios'] = {
+    label = 'ACE STUDIOS Test Pack',
+    weight = 50,
     stack = true,
     close = true,
-    description = 'Contains 10 trading cards',
-    server = { export = 'as-tradingcards.useItem' },
-},
-
-['ascard_booster_box'] = {
-    label = 'Series 1 Booster Box',
-    weight = 300,
-    stack = true,
-    close = true,
-    description = 'Contains 12 booster packs',
-    server = { export = 'as-tradingcards.useItem' },
+    description = 'Opens 5 cards',
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_player'] = {
@@ -35,7 +28,7 @@
     weight = 1,
     stack = false,
     close = true,
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_star'] = {
@@ -43,7 +36,7 @@
     weight = 1,
     stack = false,
     close = true,
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_captain'] = {
@@ -51,7 +44,7 @@
     weight = 1,
     stack = false,
     close = true,
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_winner'] = {
@@ -59,7 +52,7 @@
     weight = 1,
     stack = false,
     close = true,
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_century'] = {
@@ -67,7 +60,7 @@
     weight = 1,
     stack = false,
     close = true,
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_legend'] = {
@@ -75,7 +68,7 @@
     weight = 1,
     stack = false,
     close = true,
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_slab'] = {
@@ -84,7 +77,7 @@
     stack = false,
     close = true,
     description = 'A professionally graded card in a sealed case',
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_psa'] = {
@@ -101,8 +94,8 @@
     stack = false,
     close = true,
     description = 'Track your collection',
-    server = { export = 'as-tradingcards.useItem' },
-    buttons = { { label = 'Rename', action = function(slot) exports['as-tradingcards']:renameItem(slot) end } },
+    server = { export = 'as-tradingcards-V2.useItem' },
+    buttons = { { label = 'Rename', action = function(slot) exports['as-tradingcards-V2']:renameItem(slot) end } },
 },
 
 -- card condition
@@ -152,7 +145,7 @@
     stack = false,
     close = true,
     description = 'Weigh sealed packs. The heavy ones might hold a hit.',
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_slabcase'] = {
@@ -161,8 +154,8 @@
     stack = false,
     close = true,
     description = 'Holds 10 graded slabs',
-    server = { export = 'as-tradingcards.useItem' },
-    buttons = { { label = 'Rename', action = function(slot) exports['as-tradingcards']:renameItem(slot) end } },
+    server = { export = 'as-tradingcards-V2.useItem' },
+    buttons = { { label = 'Rename', action = function(slot) exports['as-tradingcards-V2']:renameItem(slot) end } },
 },
 
 ['ascard_appraisal'] = {
@@ -171,7 +164,7 @@
     stack = false,
     close = true,
     description = 'An official card appraisal',
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },
 
 ['ascard_shrinkwrap'] = {
@@ -180,5 +173,5 @@
     stack = true,
     close = true,
     description = 'Wrap loose packs back into a box. It won’t pass a seal check.',
-    server = { export = 'as-tradingcards.useItem' },
+    server = { export = 'as-tradingcards-V2.useItem' },
 },

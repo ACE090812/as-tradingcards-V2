@@ -150,24 +150,8 @@ Config.Parallels = {
     guaranteed = at least `count` cards of `minRarity` type or better
     foilChance = 0.0 - 1.0 per card
 --------------------------------------------------------------------------- ]]
-Config.Packs = {
-    ['ascard_booster_pack1'] = {
-        label = 'Series 1 Booster',
-        set = 'series1',
-        cards = 5,
-        weights = { player = 70, star = 18, captain = 6, winner = 4, century = 1.5, legend = 0.5 },
-        guaranteed = { count = 1, minRarity = 'star' },
-        foilChance = 0.05,
-    },
-    ['ascard_booster_pack2'] = {
-        label = 'Series 1 Mega Booster',
-        set = 'series1',
-        cards = 10,
-        weights = { player = 60, star = 22, captain = 8, winner = 6, century = 2.5, legend = 1.5 },
-        guaranteed = { count = 2, minRarity = 'star' },
-        foilChance = 0.07,
-    },
-}
+-- No built-in packs. Packs come from your custom series (Config.Packs[...] in custom/cards.lua, made in the Card Creator).
+Config.Packs = {}
 
 Config.PackOpening = {
     duration = 3000,
@@ -189,7 +173,7 @@ Config.PackArt = 'img/card_back.jpg'
     BOOSTER BOX  - use it to get a stack of packs
 --------------------------------------------------------------------------- ]]
 Config.BoosterBox = {
-    enabled = true,
+    enabled = false,         -- Series 1 is gone; this box gave Series 1 packs
     item = 'ascard_booster_box',
     label = 'Series 1 Booster Box',
     gives = { item = 'ascard_booster_pack1', count = 12 },
@@ -289,13 +273,6 @@ Config.Pricing = {
 Config.Shop = {
     label = 'Card Shop',
     items = {
-        { item = 'ascard_booster_pack1', price = 10,  label = 'Series 1 Booster (5 cards)' },
-        { item = 'ascard_booster_pack2', price = 20,  label = 'Series 1 Mega Booster (10 cards)' },
-        { item = 'ascard_booster_box',   price = 100, label = 'Series 1 Booster Box (12 packs)' },
-        { item = 'ascard_fat_pack',      price = 15,  label = 'Series 1 Fat Pack (7 cards, 1 foil)' },
-        { item = 'ascard_tin',           price = 60,  label = 'Collector Tin (4 packs + limited card)' },
-        { item = 'ascard_blaster',       price = 75,  label = 'Blaster Box (6 packs + exclusive)' },
-        { item = 'ascard_hobby_box',     price = 400, label = 'Hobby Box (12 hobby packs, 1 guaranteed hit)' },
         { item = 'ascard_psa',           price = 100, label = 'Grading Case' },
         { item = 'ascard_binder',        price = 50,  label = 'Card Binder' },
         { item = 'ascard_sleeve',        price = 1,   label = 'Penny Sleeve' },

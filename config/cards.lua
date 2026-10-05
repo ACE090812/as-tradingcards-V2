@@ -9,12 +9,9 @@ Config.Clubs = {
 --[[ ---------------------------------------------------------------------------
     SETS
 --------------------------------------------------------------------------- ]]
-Config.Sets = {
-    series1 = {
-        label = 'Series 1',
-        code = 'S1',
-    },
-}
+-- No built-in sets. Every series you make (a card's `set` in custom/cards.lua) creates its own set automatically.
+-- Give a series a proper name / code in Config.Custom.sets (config/custom.lua).
+Config.Sets = {}
 
 --[[ ---------------------------------------------------------------------------
     PORTRAIT LOOKS  (the illustrated player - generic cartoon, not a likeness)

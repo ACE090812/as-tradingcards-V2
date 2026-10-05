@@ -6,47 +6,9 @@
 -- more packs (merged into Config.Packs). insertChance = chance a pack holds an autograph / relic.
 -- Packs with a hit weigh a little more in the inventory (Config.Inserts.hitWeight).
 local P = Config.Packs
-P['ascard_booster_pack1'].insertChance = 0.01
-P['ascard_booster_pack2'].insertChance = 0.02
-P['ascard_fat_pack'] = {
-    label = 'Series 1 Fat Pack', set = 'series1', cards = 7,
-    weights = { player = 66, star = 20, captain = 7, winner = 5, century = 1.5, legend = 0.5 },
-    guaranteed = { count = 1, minRarity = 'star' },
-    foilChance = 0.05, guaranteedFoil = 1,          -- always at least 1 foil
-    insertChance = 0.015,
-}
-P['ascard_blaster_pack'] = {
-    label = 'Blaster Exclusive Pack', set = 'series1', cards = 3,
-    weights = { player = 40, star = 35, captain = 12, winner = 9, century = 3, legend = 1 },
-    guaranteed = { count = 1, minRarity = 'captain' },
-    foilChance = 0.25, guaranteedParallel = true,   -- always one numbered parallel (blue or better)
-    insertChance = 0.03,
-}
-P['ascard_hobby_pack'] = {
-    label = 'Series 1 Hobby Pack', set = 'series1', cards = 8,
-    weights = { player = 55, star = 24, captain = 9, winner = 7, century = 3, legend = 2 },
-    guaranteed = { count = 2, minRarity = 'star' },
-    foilChance = 0.10,
-    insertChance = 0.06,                            -- plus one guaranteed hit per hobby box
-}
+-- (Series 1 packs and boxes removed. Add insertChance = 0.01 to a custom pack in custom/cards.lua if you want hits in it.)
 
--- boxes & tins: use them to get their contents (the old Config.BoosterBox still works too)
-Config.Boxes = {
-    ['ascard_blaster'] = {
-        label = 'Series 1 Blaster Box', duration = 4000,
-        gives = { { item = 'ascard_booster_pack1', count = 6 }, { item = 'ascard_blaster_pack', count = 1 } },
-    },
-    ['ascard_hobby_box'] = {
-        label = 'Series 1 Hobby Box', duration = 5000,
-        gives = { { item = 'ascard_hobby_pack', count = 12 } },
-        guaranteedHits = 1,                         -- this many of the packs are guaranteed to hold a hit
-    },
-    ['ascard_tin'] = {
-        label = 'Series 1 Collector Tin', duration = 3500,
-        gives = { { item = 'ascard_booster_pack1', count = 4 } },
-        bonusCard = { minRarity = 'winner', foil = true },   -- plus one limited card straight into your inventory
-    },
-}
+Config.Boxes = {}
 
 -- chase cards. Numbered like parallels (print runs shared server-wide per player)
 Config.Inserts = {
@@ -90,7 +52,7 @@ Config.Rookies = { 'abbot', 'acheampongg', 'adupoke', 'amassive', 'ansahh', 'arm
 
 -- sealed product slowly gains value while it stays unopened (sell it back to the buyer)
 Config.Sealed = {
-    released = { series1 = 1790380800 },   -- set release time (unix)
+    released = {},                         -- set release time (unix), e.g. { myset = 1790380800 }
     growthPerWeek = 0.03,                  -- +3% a week...
     maxMultiplier = 3.0,                   -- ...up to 3x the shop price
     buyerPays = 0.8,                       -- the buyer pays 80% of the current sealed value

@@ -550,11 +550,19 @@ void main(){
         if (!gl) layers.push(h('div', { class: 'fx fx-follow' }));
         // one tidy strip along the bottom: parallel / insert / error / rookie tags, then the print number and serial
         const tags = [];
-        if (par) tags.push(h('span', { class: 'pp par', style: { '--stamp': col(par.stamp, '#444') } }, `${(par.label || '').toUpperCase()} ${par.max === 1 ? '1/1' : `${String(par.print || 0).padStart(2, '0')}/${par.max}`}`));
         if (card.insert) tags.push(h('span', { class: 'pp' }, (card.insert.label || '').toUpperCase()));
         if (card.error) tags.push(h('span', { class: 'pp err' }, (card.error.label || 'ERROR').toUpperCase()));
         if (card.rookie) tags.push(h('span', { class: 'pp' }, 'RC'));
         const info = [printText(card), card.serial].filter(Boolean).join('  ·  ');
+        // a numbered parallel replaces the rarity badge printed in the top right of the picture ("COMMON" becomes "GOLD 01/50")
+        let badge = null;
+        if (par) {
+            const txt = `${(par.label || '').toUpperCase()} ${par.max === 1 ? '1/1' : `${String(par.print || 0).padStart(2, '0')}/${par.max}`}`;
+            // the printed badge is about 10.8px a letter + 28px at the 630px print size; cover at least that much (card is drawn at 300px)
+            const cover = (10.8 * String(t.label || '').length + 28 + 10) * (300 / 630);
+            const own = txt.length * 5.2 + 12;
+            badge = h('div', { class: 'pic-badge', style: { '--stamp': col(par.stamp, '#444'), minWidth: `${Math.max(cover, own).toFixed(1)}px` } }, txt);
+        }
         return h('div', {
             class: classes,
             style: { '--pulse': col(fx.pulse, '#ffffff'), '--sweep': fx.sweep || 'transparent', '--speed': fx.speed || '4.5s', '--fs': String(strength) },
@@ -562,6 +570,7 @@ void main(){
             h('div', { class: 'fc-in' },
                 h('img', { class: 'pic pic-img', src: card.face, draggable: 'false' }),
                 gl,
+                badge,
                 layers,
                 (tags.length || info) ? h('div', { class: 'pic-print' }, tags, info ? h('span', { class: 't' }, info) : null) : null,
             ),
@@ -648,7 +657,7 @@ void main(){
         const off = window.CondFX.centering && window.CondFX.centering(card.cond.c);
         if (off && face.classList && face.classList.contains('fc-pic')) {
             // picture card: slide the print inside the card stock, so one border looks thicker and the opposite one is cut off
-            const im = face.querySelectorAll('.pic');
+            const im = face.querySelectorAll('.pic, .pic-badge');
             im.forEach(el => el.style.transform = `translate(${(off.dx * 1.4).toFixed(1)}px, ${(off.dy * 1.4).toFixed(1)}px)`);
         } else if (off && face.classList && face.classList.contains('fc')) {
             const b = 6, p = v => `${Math.max(0.5, b + v).toFixed(1)}px`;

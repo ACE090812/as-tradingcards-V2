@@ -1172,3 +1172,12 @@ html, body {
 .fin-rainbow .fx-fin { background: linear-gradient(125deg, rgba(255,0,132,.6), rgba(255,196,0,.55) 16%, rgba(0,255,170,.55) 32%, rgba(0,170,255,.55) 48%, rgba(183,0,255,.6) 64%, rgba(255,0,132,.6) 80%); background-size: 300% 300%; mix-blend-mode: color-dodge; animation: fxHolo 7s ease-in-out infinite; }
 .tilt.active .fin-rainbow .fx-fin { animation: none; background-position: var(--mx) var(--my); }
 @keyframes fxIce { 0%, 100% { opacity: calc(.16 * var(--fs, 1)); } 50% { opacity: calc(.34 * var(--fs, 1)); } }
+
+/* parallel badge: sits exactly where the picture's printed rarity badge is (top right of the name plate) and hides it */
+.fc-pic .pic-badge {
+    position: absolute; z-index: 5; right: 20px; top: 26px; height: 20px; box-sizing: border-box; padding: 0 7px;
+    display: flex; align-items: center; justify-content: center; white-space: nowrap; border-radius: 4px;
+    background-color: var(--stamp, #444); background-image: linear-gradient(180deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 55%, rgba(0, 0, 0, .25));
+    border: 1px solid rgba(255, 255, 255, .55); color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+    font: 800 10px/1 'Barlow Condensed', sans-serif; letter-spacing: .07em;
+}

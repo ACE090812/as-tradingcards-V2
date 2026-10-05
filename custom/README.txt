@@ -8,13 +8,13 @@ EASIEST WAY: paste the creators' own Lua output (no editing, no converting)
   Creator rarity becomes a card type (Common, Uncommon, Rare, Epic,
   Legendary, Mythic). ATK and DEF are used as the card's attack and defence. 
   THEMES (set in the Card Creator's Theme box):
-    Football  -> set series2.   Fields: club, position, nation.
+    Football  -> set series2 unless the card names its own set.   Fields: club, position, nation.
     Creatures -> set creatures. Fields: element (ember, tide, leaf, volt, shade, stone, frost, spirit), stage, HP, move. Original creatures, no real franchise names or art.
     Los Santos -> set lossantos. Fields: category (character, vehicle, landmark, crew, item), district.
   All three sets are hidden until the admin Series 2 switch is on AND the set has at least one card.
   CARD BACKS: the Card Creator's Card back panel designs one back per theme (pattern, colours, emblem, title) or uses your own image. It exports with Copy Lua into custom/cards.lua. No back = the default.
   PACKS: the creator's Packs panel exports Config.Packs into custom/cards.lua. Rates become the pack's card type odds, and the last-card guarantee is kept. A pack draws from ONE game set (its theme's set), so make one pack per theme. Add the pack item lines (ox/qb) to your inventory. Card back extras (image, dim, fit, colours) are read too.
-  Packs: ascard_s2_booster, ascard_cr_booster, ascard_ls_booster (items in install/).
+  Packs: none are built in. Make one per series (pack_<name> in custom/cards.lua) and add its item to your inventory.
   Spell and trap cards are skipped (battles have no spells or traps) and logged in the server console.
   Finish and border/plate colours are kept. All options are in Config.Custom (config/custom.lua).
   The JSON format below still works too.

@@ -194,6 +194,4 @@ All new tables are created automatically on start. Everything below is switched 
 
 
 ### Themes
-Card Creator supports Football, Creatures (original) and Los Santos. Each theme is its own set with its own booster
-(`ascard_s2_booster`, `ascard_cr_booster`, `ascard_ls_booster`). All are released by the single Series 2 admin switch
-once the set has cards. See custom/README.txt.
+The Card Creator supports Football, Creatures (original) and Los Santos card themes. A theme only changes how a card looks; you choose the series (`set`) yourself. See custom/README.txt.

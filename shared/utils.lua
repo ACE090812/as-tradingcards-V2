@@ -169,6 +169,10 @@ function Utils.CardFoilMap(cardId)
         return foilCache[cardId]
     end
     foilCache[cardId] = false
+    local card = Config.Cards[cardId]
+    if card and card.finish and IsDuplicityVersion() and Utils.CardFace(cardId) then
+        print(('^3[as-tradingcards] card "%s" has a foil finish ("%s") but html/img/cards/%s_foil.png is missing, so the game uses a simpler glow. Download everything from the Card Creator again and copy html/img/cards/ across.^0'):format(cardId, card.finish, cardId))
+    end
     return nil
 end
 

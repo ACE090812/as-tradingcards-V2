@@ -508,6 +508,24 @@ void main(){
             });
         });
     }, { passive: true });
+    // off-centre print: the blue (card stock) border stays full size and the inner panel slides inside it, so one side of the border
+    // is thicker and the opposite side thinner. 9-slice: border strips stretch, the inner panel keeps its size and just moves.
+    // BORDER = width of the stock border in the 630px-wide face picture (the Card Creator draws the inner panel from 24px in).
+    const BORDER = 24, MIN_LEFT = 6;
+    function shiftPx(off) {
+        const k = GLW / 300, m = BORDER - MIN_LEFT, c = v => Math.max(-m, Math.min(m, v * 1.4 * k));
+        return { dx: c(off.dx), dy: c(off.dy) };
+    }
+    function drawShifted(ctx, src, off) {
+        const sw = src.naturalWidth || src.width, sh = src.naturalHeight || src.height;
+        if (!sw || !sh) return;
+        const { dx, dy } = shiftPx(off), bx = BORDER * sw / GLW, by = BORDER * sh / GLH;
+        const sx = [0, bx, sw - bx, sw], sy = [0, by, sh - by, sh];
+        const tx = [0, BORDER + dx, GLW - BORDER + dx, GLW], ty = [0, BORDER + dy, GLH - BORDER + dy, GLH];
+        ctx.clearRect(0, 0, GLW, GLH);
+        for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++)
+            ctx.drawImage(src, sx[i], sy[j], sx[i + 1] - sx[i], sy[j + 1] - sy[j], tx[i], ty[j], tx[i + 1] - tx[i], ty[j + 1] - ty[j]);
+    }
     // the card's picture drawn through the website's foil shader into a normal canvas. Returns null when it can't (no WebGL, missing files).
     function foilCanvas(card) {
         const fin = card.finish && card.finish !== 'none' ? card.finish : null;
@@ -519,7 +537,8 @@ void main(){
             if (!params) return;
             const g = glRenderer(); if (!g) return;
             g.draw(params, tx, ty);
-            ctx.clearRect(0, 0, GLW, GLH); ctx.drawImage(g.canvas, 0, 0);
+            if (cv._off) drawShifted(ctx, g.canvas, cv._off);
+            else { ctx.clearRect(0, 0, GLW, GLH); ctx.drawImage(g.canvas, 0, 0); }
         };
         Promise.all([glLoad(card.face), glLoad(card.foilMap)]).then(([face, foil]) => {
             if (!face || !foil) { cv.classList.add('gl-failed'); return; }
@@ -656,9 +675,18 @@ void main(){
         // off-centre print: the picture sits closer to one edge, so the borders are uneven
         const off = window.CondFX.centering && window.CondFX.centering(card.cond.c);
         if (off && face.classList && face.classList.contains('fc-pic')) {
-            // picture card: slide the print inside the card stock, so one border looks thicker and the opposite one is cut off
-            const im = face.querySelectorAll('.pic, .pic-badge');
-            im.forEach(el => el.style.transform = `translate(${(off.dx * 1.4).toFixed(1)}px, ${(off.dy * 1.4).toFixed(1)}px)`);
+            // picture card: the border stays put and the inner panel slides inside it (thick border one side, thin the other)
+            const pic = face.querySelector('.pic');
+            if (pic && pic.tagName === 'CANVAS') {
+                pic._off = off;                                   // foil canvas: applies the shift every time it draws (first draw is async)
+            } else if (pic && pic.tagName === 'IMG') {
+                const cv = h('canvas', { class: pic.className, width: String(GLW), height: String(GLH) });
+                const go = () => drawShifted(cv.getContext('2d'), pic, off);
+                pic.complete && pic.naturalWidth ? go() : pic.addEventListener('load', go, { once: true });
+                pic.replaceWith(cv);
+            }
+            const { dx, dy } = shiftPx(off), k = GLW / 300;       // the parallel badge sits in the inner panel, so it moves with it
+            face.querySelectorAll('.pic-badge').forEach(el => el.style.transform = `translate(${(dx / k).toFixed(1)}px, ${(dy / k).toFixed(1)}px)`);
         } else if (off && face.classList && face.classList.contains('fc')) {
             const b = 6, p = v => `${Math.max(0.5, b + v).toFixed(1)}px`;
             face.style.padding = `${p(off.dy)} ${p(-off.dx)} ${p(-off.dy)} ${p(off.dx)}`;
